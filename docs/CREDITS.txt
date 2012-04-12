@@ -1,0 +1,4 @@
+Contributors
+------------
+
+* Franco Pellegrini (frapell@ravvit.net)

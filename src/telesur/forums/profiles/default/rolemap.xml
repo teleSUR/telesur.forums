@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<rolemap>
+
+  <roles>
+    <role name="Forum Moderator"/>
+  </roles>
+
+  <permissions>
+
+    <permission name="telesur.forums: Can add a Question" acquire="False">
+      <role name="Anonymous"/>
+    </permission>
+
+    <permission name="telesur.forums: Can answer a Question" acquire="False">
+      <role name="Forum Moderator"/>
+    </permission>
+
+  </permissions>
+</rolemap>
