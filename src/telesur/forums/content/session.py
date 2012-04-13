@@ -65,7 +65,7 @@ class View(dexterity.DisplayForm):
     grok.require('zope2.View')
 
     def render(self):
-        pt = ViewPageTemplateFile('session_templates/view.pt')
+        pt = ViewPageTemplateFile('session_templates/session_view.pt')
 
         if not self.can_edit():
             self.request.set('disable_border', 1)
