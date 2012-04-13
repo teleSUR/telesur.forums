@@ -1,0 +1,119 @@
+# Franco Pellegrini, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2012-04-13 05:14+0000\n"
+"PO-Revision-Date: 2012-04-13 02:18-0300\n"
+"Last-Translator: Franco Pellegrini <frapell@ravvit.net>\n"
+"Language-Team: Spanish <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: es\n"
+"Language-Name: Español\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: telesur.forums\n"
+"Language: es\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: telesur/forums/content/session_templates/view.pt:27
+msgid "Add question"
+msgstr "Añadir pregunta"
+
+#: telesur/forums/content/question.py:58
+msgid "Answer"
+msgstr "Respuesta"
+
+#: telesur/forums/content/session.py:56
+msgid "Banner"
+msgstr "Banner"
+
+#: telesur/forums/content/question.py:41
+msgid "Country"
+msgstr "País"
+
+#: telesur/forums/content/session.py:42
+msgid "Guest Description"
+msgstr "Descripción del invitado"
+
+#: telesur/forums/content/session.py:35
+msgid "Guest Name"
+msgstr "Nombre del invitado"
+
+#: telesur/forums/content/session.py:49
+msgid "Guest Photo"
+msgstr "Foto del invitado"
+
+#: telesur/forums/content/session.py:26
+msgid "Moderator"
+msgstr "Moderador"
+
+#: telesur/forums/content/question.py:34
+msgid "Name"
+msgstr "Nombre"
+
+#: telesur/forums/content/session_templates/view.pt:40
+msgid "Name:"
+msgstr "Nombre:"
+
+#: telesur/forums/content/question.py:48
+msgid "Question"
+msgstr "Pregunta"
+
+#: telesur/forums/content/session_templates/view.pt:60
+msgid "Questions pending review"
+msgstr "Preguntas pendiente de revisión"
+
+#: telesur/forums/content/session_templates/view.pt:76
+msgid "Questions rejected"
+msgstr "Preguntas rechazadas"
+
+#. Default: "Enter the answer here."
+#: telesur/forums/content/question.py:59
+msgid "help_answer"
+msgstr "Ingrese aquí la respuesta."
+
+#. Default: "Enter the banner you want to show on top of the session."
+#: telesur/forums/content/session.py:57
+msgid "help_banner"
+msgstr ""
+"Agregue aquí el banner que quiere mostrar en la parte superior de la sesión."
+
+#. Default: "Enter here your country."
+#: telesur/forums/content/question.py:42
+msgid "help_country"
+msgstr "Ingrese aquí su país."
+
+#. Default: "Enter here the guest's description."
+#: telesur/forums/content/session.py:43
+msgid "help_guest_description"
+msgstr "Ingrese aquí la descripción del invitado."
+
+#. Default: "Enter here the guest's fullname."
+#: telesur/forums/content/session.py:36
+msgid "help_guest_name"
+msgstr "Ingrese aquí el nombre completo del invitado."
+
+#. Default: "Enter here the guest's photo."
+#: telesur/forums/content/session.py:50
+msgid "help_guest_photo"
+msgstr "Ingrese aquí una foto del invitado."
+
+#. Default: "Choose a user that will be a moderator for the session."
+#: telesur/forums/content/session.py:27
+msgid "help_moderator"
+msgstr ""
+"Seleccione un usuario que va a cumplir el rol de moderador en la sesión."
+
+#. Default: "Enter here your full name."
+#: telesur/forums/content/question.py:35
+msgid "help_name"
+msgstr "Ingrese aquí su nombre completo."
+
+#. Default: "Enter your question here."
+#: telesur/forums/content/question.py:49
+msgid "help_question"
+msgstr "Ingrese aquí su pregunta."
+
+

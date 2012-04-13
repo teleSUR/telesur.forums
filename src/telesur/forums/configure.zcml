@@ -7,8 +7,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="telesur.forums">
 
-  <!--  <i18n:registerTranslations directory="locales" />
-    <includeDependencies package="." />-->
+  <i18n:registerTranslations directory="locales" />
 
   <grok:grok package="." />
 
