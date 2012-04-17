@@ -43,8 +43,13 @@ class ForumsLocalRoles(object):
                 session = context.aq_inner.aq_parent
 
         if session:
-            if session.moderator and (principal_id in session.moderator):
-                return ["Forum Moderator"]
+            pm = self.context.portal_membership
+            user = pm.getMemberById(principal_id)
+
+            if user:
+                username = user.getUser().getUserName()
+                if session.moderator and (username in session.moderator):
+                    return ["Forum Moderator"]
 
         # No match
         return []

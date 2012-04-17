@@ -1,0 +1,220 @@
+Functional test:
+
+    >>> import os
+
+    >>> app = layer['app']
+    >>> portal = layer['portal']
+    >>> request = layer['request']
+
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
+    >>> portalURL = portal.absolute_url()
+
+    >>> from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
+    >>> browser.open(portalURL + '/login_form')
+    >>> browser.getControl(name='__ac_name').value = SITE_OWNER_NAME
+    >>> browser.getControl(name='__ac_password').value = SITE_OWNER_PASSWORD
+    >>> browser.getControl(name='submit').click()
+
+    >>> 'You are now logged in' in browser.contents
+    True
+
+    >>> browser.getLink('Home').click()
+    >>> browser.getLink('Session').click()
+    >>> browser.getControl('Title').value = 'This is the session'
+    >>> browser.getControl('Guest Name').value = 'This is the Guest Name'
+    >>> browser.getControl('Moderator').value = ['test_user_1_']
+    >>> guest_photo = open(os.path.join(os.path.dirname(__file__), 'guest_photo.jpg'))
+    >>> browser.getControl(name="form.widgets.guest_photo").value = guest_photo
+
+    >>> browser.getControl('Save').click()
+    >>> 'Item created' in browser.contents
+    True
+    >>> session_url = portalURL + '/this-is-the-session'
+
+A Session can contain questions, but only if it is published, but only
+the moderator can do it, let's first check that we cannot do it:
+
+    >>> 'Publish' in browser.contents
+    False
+
+Let's logout and login as the test user (which is the moderator):
+
+    >>> browser.open(portalURL + '/logout')
+    >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
+    >>> browser.open(portalURL + '/login_form')
+    >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
+    >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
+    >>> browser.getControl(name='submit').click()
+
+    >>> 'You are now logged in' in browser.contents
+    True
+
+    >>> browser.open(session_url)
+    >>> 'Publish' in browser.contents
+    True
+    >>> browser.getLink('Publish').click()
+
+Let's logout and add 3 questions as anonymous
+
+    >>> browser.open(portalURL + '/logout')
+    >>> browser.open(session_url)
+    >>> browser.getLink('Add question').click()
+    >>> 'answer' in browser.contents.lower()
+    False
+    >>> browser.getControl('Name').value = 'Name 1'
+    >>> browser.getControl('Country').value = 'Country 1'
+    >>> browser.getControl('Question').value = 'Test question 1'
+    >>> browser.getControl("Save").click()
+
+    >>> browser.getLink('Add question').click()
+    >>> browser.getControl('Name').value = 'Name 2'
+    >>> browser.getControl('Country').value = 'Country 2'
+    >>> browser.getControl('Question').value = 'Test question 2'
+    >>> browser.getControl("Save").click()
+
+    >>> browser.getLink('Add question').click()
+    >>> browser.getControl('Name').value = 'Name 3'
+    >>> browser.getControl('Country').value = 'Country 3'
+    >>> browser.getControl('Question').value = 'Test question 3'
+    >>> browser.getControl("Save").click()
+
+At this point we shouldn't be seeing any of the questions
+
+    >>> 'Name 1' in browser.contents
+    False
+    >>> 'Country 1' in browser.contents
+    False
+    >>> 'Test question 1' in browser.contents
+    False
+
+    >>> 'Name 2' in browser.contents
+    False
+    >>> 'Country 2' in browser.contents
+    False
+    >>> 'Test question 2' in browser.contents
+    False
+
+    >>> 'Name 2' in browser.contents
+    False
+    >>> 'Country 2' in browser.contents
+    False
+    >>> 'Test question 2' in browser.contents
+    False
+
+
+Let's login again as the test user (which is the moderator):
+
+    >>> browser.open(portalURL + '/login_form')
+    >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
+    >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
+    >>> browser.getControl(name='submit').click()
+
+    >>> 'You are now logged in' in browser.contents
+    True
+
+    >>> browser.open(session_url)
+
+Questions are now visible:
+
+    >>> 'Test question 1' in browser.contents
+    True
+    >>> 'Test question 2' in browser.contents
+    True
+    >>> 'Test question 3' in browser.contents
+    True
+
+Let's publish one of the questions, but we need to answer it first:
+
+    >>> browser.getLink("Name 1 Country 1 Test question 1").click()
+    >>> 'Publish' in browser.contents
+    False
+    >>> browser.getLink("Edit").click()
+    >>> 'answer' in browser.contents.lower()
+    True
+    >>> browser.getControl('Answer').value = 'Test answer 1'
+    >>> browser.getControl("Save").click()
+    >>> browser.getLink('Publish').click()
+
+Let's go back to the session and check if we see it answered
+
+    >>> browser.open(session_url)
+    >>> 'Test answer 1' in browser.contents
+    True
+
+Let's logut and check that we only see one question and that it
+is the answered one:
+
+    >>> browser.open(portalURL + '/logout')
+    >>> browser.open(session_url)
+    >>> 'Name 1' in browser.contents
+    True
+    >>> 'Country 1' in browser.contents
+    True
+    >>> 'Test question 1' in browser.contents
+    True
+    >>> 'Test answer 1' in browser.contents
+    True
+
+    >>> 'Name 2' in browser.contents
+    False
+    >>> 'Country 2' in browser.contents
+    False
+    >>> 'Test question 2' in browser.contents
+    False
+
+    >>> 'Name 2' in browser.contents
+    False
+    >>> 'Country 2' in browser.contents
+    False
+    >>> 'Test question 2' in browser.contents
+    False
+
+And finally, let's go back as the moderator, close the session and recheck
+as anonymous that we see the session and answers but no longer are we able to
+post a question
+
+    >>> browser.open(portalURL + '/login_form')
+    >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
+    >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
+    >>> browser.getControl(name='submit').click()
+
+    >>> 'You are now logged in' in browser.contents
+    True
+
+    >>> browser.open(session_url)
+    >>> browser.getLink('Close').click()
+
+    >>> browser.open(portalURL + '/logout')
+    >>> browser.open(session_url)
+    >>> 'Name 1' in browser.contents
+    True
+    >>> 'Country 1' in browser.contents
+    True
+    >>> 'Test question 1' in browser.contents
+    True
+    >>> 'Test answer 1' in browser.contents
+    True
+
+    >>> 'Name 2' in browser.contents
+    False
+    >>> 'Country 2' in browser.contents
+    False
+    >>> 'Test question 2' in browser.contents
+    False
+
+    >>> 'Name 2' in browser.contents
+    False
+    >>> 'Country 2' in browser.contents
+    False
+    >>> 'Test question 2' in browser.contents
+    False
+
+    >>> 'Add question' in browser.contents
+    False
+
+    >>> browser.open(session_url+'/++add++telesur.forums.question')
+    >>> 'Log in' in browser.contents
+    True
+    >>> 'Question' in browser.contents
+    False
