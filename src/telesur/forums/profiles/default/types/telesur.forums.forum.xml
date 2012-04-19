@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<object name="telesur.forums.session" meta_type="Dexterity FTI"
-   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">Session</property>
+<object name="telesur.forums.forum" meta_type="Dexterity FTI" i18n:domain="plone"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title" i18n:translate="">Forum</property>
  <property name="description" i18n:translate="">None</property>
  <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
- <property name="factory">telesur.forums.session</property>
+ <property name="factory">telesur.forums.forum</property>
  <property
-    name="add_view_expr">string:${folder_url}/++add++telesur.forums.session</property>
+   name="add_view_expr">string:${folder_url}/++add++telesur.forums.forum</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
- <property name="global_allow">False</property>
+ <property name="global_allow">True</property>
  <property name="filter_content_types">False</property>
  <property name="allowed_content_types">
-  <element value="telesur.forums.question"/>
+   <element value="telesur.forums.session"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>
@@ -26,7 +26,7 @@
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
  </property>
- <property name="schema">telesur.forums.content.session.ISession</property>
+ <property name="schema">telesur.forums.content.forum.IForum</property>
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="@@edit"/>
  <alias from="sharing" to="@@sharing"/>

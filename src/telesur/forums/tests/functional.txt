@@ -20,6 +20,10 @@ Functional test:
     True
 
     >>> browser.getLink('Home').click()
+    >>> browser.getLink('Forum').click()
+    >>> browser.getControl('Title').value = 'forum'
+    >>> browser.getControl('Save').click()
+    >>> forum_url = portalURL + '/forum'
     >>> browser.getLink('Session').click()
     >>> browser.getControl('Title').value = 'This is the session'
     >>> browser.getControl('Guest Name').value = 'This is the Guest Name'
@@ -30,7 +34,7 @@ Functional test:
     >>> browser.getControl('Save').click()
     >>> 'Item created' in browser.contents
     True
-    >>> session_url = portalURL + '/this-is-the-session'
+    >>> session_url = forum_url + '/this-is-the-session'
 
 A Session can contain questions, but only if it is published, but only
 the moderator can do it, let's first check that we cannot do it:

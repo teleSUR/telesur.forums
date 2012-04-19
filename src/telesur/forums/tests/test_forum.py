@@ -10,7 +10,7 @@ from plone.app.testing import setRoles
 
 from plone.dexterity.interfaces import IDexterityFTI
 
-from telesur.forums.content.session import ISession
+from telesur.forums.content.forum import IForum
 from telesur.forums.testing import INTEGRATION_TESTING
 
 
@@ -24,29 +24,23 @@ class IntegrationTest(unittest.TestCase):
         self.portal.invokeFactory('telesur.forums.forum', 'test-forum')
         self.folder = self.portal['test-forum']
 
-    def test_adding_inside_forum(self):
-        self.folder.invokeFactory('telesur.forums.session', 's1')
-        s1 = self.folder['s1']
-        self.assertTrue(ISession.providedBy(s1))
+    def test_adding(self):
+        self.assertTrue(IForum.providedBy(self.folder))
 
     def test_fti(self):
-        fti = queryUtility(IDexterityFTI, name='telesur.forums.session')
+        fti = queryUtility(IDexterityFTI, name='telesur.forums.forum')
         self.assertNotEquals(None, fti)
-    
-    def test_not_globally_addable(self):
-        fti = queryUtility(IDexterityFTI, name='telesur.forums.session')
-        self.assertFalse(fti.global_allow)
 
     def test_schema(self):
-        fti = queryUtility(IDexterityFTI, name='telesur.forums.session')
+        fti = queryUtility(IDexterityFTI, name='telesur.forums.forum')
         schema = fti.lookupSchema()
-        self.assertEquals(ISession, schema)
+        self.assertEquals(IForum, schema)
 
     def test_factory(self):
-        fti = queryUtility(IDexterityFTI, name='telesur.forums.session')
+        fti = queryUtility(IDexterityFTI, name='telesur.forums.forum')
         factory = fti.factory
         new_object = createObject(factory)
-        self.assertTrue(ISession.providedBy(new_object))
+        self.assertTrue(IForum.providedBy(new_object))
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

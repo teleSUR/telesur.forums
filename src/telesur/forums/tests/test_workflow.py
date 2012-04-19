@@ -36,8 +36,8 @@ class WorkflowTest(unittest.TestCase):
         self.portal_membership = getattr(self.portal, 'portal_membership')
         self.checkPermission = self.portal_membership.checkPermission
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.portal.invokeFactory('Folder', 'test-folder')
-        self.folder = self.portal['test-folder']
+        self.portal.invokeFactory('telesur.forums.forum', 'test-forum')
+        self.folder = self.portal['test-forum']
         self.folder.invokeFactory('telesur.forums.session', 's1')
         self.session = self.folder['s1']
 

@@ -21,8 +21,8 @@ class IntegrationTest(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager', 'Forum Moderator'])
-        self.portal.invokeFactory('Folder', 'test-folder')
-        self.folder = self.portal['test-folder']
+        self.portal.invokeFactory('telesur.forums.forum', 'test-forum')
+        self.folder = self.portal['test-forum']
         # Questions are only addable inside published sessions
         self.folder.invokeFactory('telesur.forums.session', 's1')
         self.session = self.folder['s1']
