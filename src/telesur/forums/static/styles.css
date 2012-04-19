@@ -27,3 +27,42 @@
     padding-top: 10px;
     border-bottom: 1px solid #CCC ;
 }
+
+.session-banner {
+    height: 150px;
+}
+
+.session-banner img {
+    width: 100%;
+    height: 100%;
+}
+
+.session-guest-photo {
+    width: 150px;
+    float: left;
+}
+
+.session-guest-photo img {
+    width: 100%;
+    height: 100%;
+}
+
+.guest-data {
+    margin-left: 160px;
+}
+
+.question-item {
+    margin-top:10px;
+}
+
+.questions-and-answer-section {
+    margin-top: 10px;
+}
+
+.question-head {
+    background-color: #EEE;
+}
+
+.answer {
+    border: 3px solid #CCC;
+}
