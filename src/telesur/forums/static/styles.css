@@ -1,1 +1,29 @@
+.session-guest-pic {
+    float:left;
+    width:150px;
+}
 
+.session-guest-pic img {
+    width: 100%;
+    height:100%;
+}
+
+.session-title, .session-guest-name, .session-guest-description {
+    margin-left: 160px;
+}
+
+.session-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.session-guest-name {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.session-item {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #CCC ;
+}
