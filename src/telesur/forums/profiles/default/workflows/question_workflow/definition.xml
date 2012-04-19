@@ -5,26 +5,51 @@
  <permission>Review portal content</permission>
  <permission>View</permission>
  <permission>telesur.forums: Can answer a Question</permission>
+ <permission>telesur.forums: Can edit a Question</permission>
  <state state_id="pending_review" title="Pending review">
   <description>Can only be seen by the moderator</description>
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="reject"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Forum Moderator</permission-role>
-  </permission-map>
-  <permission-map name="Review portal content" acquired="False">
-   <permission-role>Forum Moderator</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
+   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
+   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="telesur.forums: Can answer a Question" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="telesur.forums: Can edit a Question" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
  <state state_id="published" title="Published">
@@ -32,51 +57,80 @@
   <exit-transition transition_id="reject"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
-  </permission-map>
-  <permission-map name="Add portal content" acquired="False">
-   <permission-role>Anonymous</permission-role>
-   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Forum Moderator</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Anonymous</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
-  </permission-map>
-  <permission-map name="View management screens" acquired="False">
-   <permission-role>Anonymous</permission-role>
-  </permission-map>
-  <permission-map name="telesur.forums: Can add a Question" acquired="False">
-   <permission-role>Anonymous</permission-role>
-   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="telesur.forums: Can answer a Question" acquired="False">
+  </permission-map>
+  <permission-map name="telesur.forums: Can edit a Question" acquired="False">
+   <permission-role>Editor</permission-role>
    <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
  <state state_id="rejected" title="">
   <exit-transition transition_id="publish"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Forum Moderator</permission-role>
-  </permission-map>
-  <permission-map name="Review portal content" acquired="False">
-   <permission-role>Forum Moderator</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
+   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
+   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="telesur.forums: Can answer a Question" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Guest</permission-role>
    <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="telesur.forums: Can edit a Question" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Forum Moderator</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
  <transition transition_id="publish" title="Publishes the question" new_state="published" trigger="USER" before_script="" after_script="">

@@ -30,7 +30,8 @@
                 <span tal:content="session/guest_name" />
               </div>
               <div class="session-guest-description">
-                <span tal:replace="structure session/guest_description/output" />
+                <span tal:condition="session/guest_description"
+                      tal:replace="structure session/guest_description/output" />
               </div>
               <div style="clear:both;"></div>
           </div>
@@ -51,7 +52,8 @@
                 <span tal:content="session/guest_name" />
               </div>
               <div class="session-guest-description">
-                <span tal:replace="structure session/guest_description/output" />
+                <span tal:condition="session/guest_description"
+                      tal:replace="structure session/guest_description/output" />
               </div>
               <div style="clear:both;"></div>
             </div>

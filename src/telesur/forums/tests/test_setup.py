@@ -33,7 +33,7 @@ class InstallTest(unittest.TestCase):
         permission = 'telesur.forums: Can answer a Question'
         roles = self.portal.rolesOfPermission(permission)
         roles = [r['name'] for r in roles if r['selected']]
-        self.assertEqual(roles, ['Forum Moderator'])
+        self.assertEqual(roles, ['Forum Guest', 'Forum Moderator'])
 
 
 def test_suite():

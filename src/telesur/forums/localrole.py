@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from Products.CMFCore.utils import getToolByName
+
 from borg.localrole.interfaces import ILocalRoleProvider
 
 from telesur.forums.content.session import ISession
@@ -27,7 +29,7 @@ class ForumsLocalRoles(object):
     def __init__(self, context):
         self.context = context
 
-    def getForumModeratorRolesOnContext(self, context, principal_id):
+    def getForumRolesOnContext(self, context, principal_id):
         """
         Calculate Forum Moderator roles based on the user object.
 
@@ -35,6 +37,7 @@ class ForumsLocalRoles(object):
         """
 
         session = None
+        roles = []
 
         if ISession.providedBy(context):
             session = context.aq_inner
@@ -43,16 +46,18 @@ class ForumsLocalRoles(object):
                 session = context.aq_inner.aq_parent
 
         if session:
-            pm = self.context.portal_membership
+            pm = getToolByName(self.context, 'portal_membership')
             user = pm.getMemberById(principal_id)
 
             if user:
                 username = user.getUser().getUserName()
                 if session.moderator and (username in session.moderator):
-                    return ["Forum Moderator"]
+                    roles += ["Forum Moderator"]
 
+                if session.guest and (username in session.guest):
+                    roles += ["Forum Guest"]
         # No match
-        return []
+        return roles
 
     def getRoles(self, principal_id):
         """Returns the roles for the given principal in context.
@@ -62,7 +67,7 @@ class ForumsLocalRoles(object):
         @param context: Any Plone object
         @param principal_id: User login id
         """
-        return self.getForumModeratorRolesOnContext(self.context, principal_id)
+        return self.getForumRolesOnContext(self.context, principal_id)
 
     def getAllRoles(self):
         """Returns all the local roles assigned in this context:

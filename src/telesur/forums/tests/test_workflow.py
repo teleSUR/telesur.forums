@@ -70,12 +70,14 @@ class WorkflowTest(unittest.TestCase):
         review_state = self.wt.getInfoFor(self.session, 'review_state')
         self.assertEqual(review_state, 'private')
 
+        setRoles(self.portal, TEST_USER_ID, ['Forum Guest'])
+
         self.assertRaises(WorkflowException,
                           self.wt.doActionFor,
                           self.session, 'publish')
 
 
-        setRoles(self.portal, TEST_USER_ID, ['Manager', 'Forum Moderator'])
+        setRoles(self.portal, TEST_USER_ID, ['Forum Moderator'])
         self.wt.doActionFor(self.session, 'publish')
 
         review_state = self.wt.getInfoFor(self.session, 'review_state')
@@ -108,15 +110,6 @@ class WorkflowTest(unittest.TestCase):
 
         self.session.invokeFactory('telesur.forums.question', 'test-question', question=u'Test question')
         self.assertTrue('test-question' in self.session)
-
-    def test_anonymous_can_add_questions_but_not_answers(self):
-        # TODO: No puedo encontrar una buena manera de testear esto, y
-        #       parece que David Glick tampoco :-/
-
-        # Quizas pueda hacerse con algo de http://pypi.python.org/pypi/RestrictedPython
-        # como RestrictedPython.Guards.guarded_setattr
-
-        pass
 
     def test_question_not_publishable_until_answered(self):
 

@@ -3,6 +3,7 @@
 
   <roles>
     <role name="Forum Moderator"/>
+    <role name="Forum Guest"/>
   </roles>
 
   <permissions>
@@ -12,6 +13,11 @@
     </permission>
 
     <permission name="telesur.forums: Can answer a Question" acquire="False">
+      <role name="Forum Moderator"/>
+      <role name="Forum Guest"/>
+    </permission>
+
+    <permission name="telesur.forums: Can edit a Question" acquire="True">
       <role name="Forum Moderator"/>
     </permission>
 

@@ -31,6 +31,14 @@ class ISession(form.Schema):
             required=True,
         )
 
+    guest = schema.Choice(
+            title=_(u'Guest'),
+            description=_(u'help_guest',
+                          default=u'Choose the guest for the session.'),
+            vocabulary=u'plone.principalsource.Users',
+            required=False,
+        )
+
     guest_name = schema.TextLine(
             title=_(u'Guest Name'),
             description=_(u'help_guest_name',
@@ -74,6 +82,9 @@ class View(dexterity.DisplayForm):
 
     def can_edit(self):
         return checkPermission('cmf.ModifyPortalContent', self.context)
+
+    def can_answer(self):
+        return checkPermission('telesur.forums.questionCanAnswer', self.context)
 
     def can_add_question(self):
         return checkPermission('telesur.forums.questionAddable', self.context)

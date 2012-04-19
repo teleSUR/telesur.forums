@@ -12,7 +12,7 @@ from zope.event import notify
 from zope.lifecycleevent import ObjectMovedEvent
 from OFS.event import ObjectWillBeMovedEvent
 
-from plone.directives import form
+from plone.directives import form, dexterity
 from plone.i18n.normalizer import idnormalizer
 
 from z3c.form.interfaces import IEditForm
@@ -30,6 +30,7 @@ class IQuestion(form.Schema):
     A question that any site visitor can add.
     """
 
+    dexterity.write_permission(name='telesur.forums.questionCanEdit')
     name = schema.TextLine(
             title=_(u'Name'),
             description=_(u'help_name',
@@ -37,6 +38,7 @@ class IQuestion(form.Schema):
             required=True,
         )
 
+    dexterity.write_permission(country='telesur.forums.questionCanEdit')
     country = schema.TextLine(
             title=_(u'Country'),
             description=_(u'help_country',
@@ -44,13 +46,13 @@ class IQuestion(form.Schema):
             required=True,
         )
 
+    dexterity.write_permission(question='telesur.forums.questionCanEdit')
     question = schema.Text(
             title=_(u'Question'),
             description=_(u'help_question',
                           default=u'Enter your question here.'),
             required=True,
         )
-
 
     form.omitted('answer')
     form.no_omit(IEditForm, 'answer')

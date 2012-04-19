@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from Products.CMFCore.utils import getToolByName
+
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import IntegrationTesting
@@ -18,6 +20,9 @@ class Fixture(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
         self.applyProfile(portal, 'telesur.forums:default')
+
+        workflowTool = getToolByName(portal, 'portal_workflow')
+        workflowTool.setDefaultChain('simple_publication_workflow')
 
 
 FIXTURE = Fixture()

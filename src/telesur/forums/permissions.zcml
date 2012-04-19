@@ -11,5 +11,9 @@
         title="telesur.forums: Can answer a Question"
         />
 
+    <permission
+        id="telesur.forums.questionCanEdit"
+        title="telesur.forums: Can edit a Question"
+        />
 
 </configure>

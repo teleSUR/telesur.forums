@@ -19,15 +19,45 @@ Functional test:
     >>> 'You are now logged in' in browser.contents
     True
 
+Vamos a agregar 2 usuarios, uno para usar como moderador y otro para usar como invitado
+
+    >>> MODERATOR_USERNAME = 'moderator'
+    >>> MODERATOR_PASSWORD = 'moderator'
+    >>> GUEST_USERNAME = 'guest'
+    >>> GUEST_PASSWORD = 'guest'
+
+    >>> browser.getLink("Site Setup").click()
+    >>> browser.getLink("Users and Groups").click()
+    >>> browser.getControl("Add New User").click()
+    >>> browser.getControl('User Name').value = MODERATOR_USERNAME
+    >>> browser.getControl('E-mail').value = MODERATOR_USERNAME + '@none.com'
+    >>> browser.getControl('Password').value = MODERATOR_PASSWORD
+    >>> browser.getControl('Confirm password').value = MODERATOR_PASSWORD
+    >>> browser.getControl("Register").click()
+
+    >>> browser.getControl("Add New User").click()
+    >>> browser.getControl('User Name').value = GUEST_USERNAME
+    >>> browser.getControl('E-mail').value = GUEST_USERNAME + '@none.com'
+    >>> browser.getControl('Password').value = GUEST_PASSWORD
+    >>> browser.getControl('Confirm password').value = GUEST_PASSWORD
+    >>> browser.getControl("Register").click()
+
+Listo, volvemos al home y agregamos un foro, para poder agregar sesiones
+
     >>> browser.getLink('Home').click()
     >>> browser.getLink('Forum').click()
     >>> browser.getControl('Title').value = 'forum'
     >>> browser.getControl('Save').click()
     >>> forum_url = portalURL + '/forum'
+    >>> browser.getLink('Publish').click()
+
+Ahora agregamos una sesion
+
     >>> browser.getLink('Session').click()
     >>> browser.getControl('Title').value = 'This is the session'
     >>> browser.getControl('Guest Name').value = 'This is the Guest Name'
-    >>> browser.getControl('Moderator').value = ['test_user_1_']
+    >>> browser.getControl('Moderator').value = [MODERATOR_USERNAME]
+    >>> browser.getControl('Guest', index=0).value = [GUEST_USERNAME]
     >>> guest_photo = open(os.path.join(os.path.dirname(__file__), 'guest_photo.jpg'))
     >>> browser.getControl(name="form.widgets.guest_photo").value = guest_photo
 
@@ -36,19 +66,30 @@ Functional test:
     True
     >>> session_url = forum_url + '/this-is-the-session'
 
-A Session can contain questions, but only if it is published, but only
-the moderator can do it, let's first check that we cannot do it:
+Una sesion contiene preguntas, pero la sesion debe estar publicada previamente.
+Salimos y nos loggeamos nuevamente, pero como el invitado, para ver
+que no podemos publicarla:
 
+    >>> browser.open(portalURL + '/logout')
+    >>> browser.open(portalURL + '/login_form')
+    >>> browser.getControl(name='__ac_name').value = GUEST_USERNAME
+    >>> browser.getControl(name='__ac_password').value = GUEST_PASSWORD
+    >>> browser.getControl(name='submit').click()
+
+    >>> 'You are now logged in' in browser.contents
+    True
+
+    >>> browser.open(session_url)
     >>> 'Publish' in browser.contents
     False
 
-Let's logout and login as the test user (which is the moderator):
+Ahora si, salimos y nos loggeamos nuevamente, pero como el moderador,
+vemos que ahora si podemos publicar:
 
     >>> browser.open(portalURL + '/logout')
-    >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
     >>> browser.open(portalURL + '/login_form')
-    >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
-    >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
+    >>> browser.getControl(name='__ac_name').value = MODERATOR_USERNAME
+    >>> browser.getControl(name='__ac_password').value = MODERATOR_PASSWORD
     >>> browser.getControl(name='submit').click()
 
     >>> 'You are now logged in' in browser.contents
@@ -57,9 +98,10 @@ Let's logout and login as the test user (which is the moderator):
     >>> browser.open(session_url)
     >>> 'Publish' in browser.contents
     True
+
     >>> browser.getLink('Publish').click()
 
-Let's logout and add 3 questions as anonymous
+Ahora volvemos a salir, y agregamos 3 preguntas, como anónimo
 
     >>> browser.open(portalURL + '/logout')
     >>> browser.open(session_url)
@@ -83,7 +125,8 @@ Let's logout and add 3 questions as anonymous
     >>> browser.getControl('Question').value = 'Test question 3'
     >>> browser.getControl("Save").click()
 
-At this point we shouldn't be seeing any of the questions
+En este momento, como anonimos, no deberíamos estar viendo ninguna de las
+preguntas, ya que se encuentran privadas
 
     >>> 'Name 1' in browser.contents
     False
@@ -107,11 +150,11 @@ At this point we shouldn't be seeing any of the questions
     False
 
 
-Let's login again as the test user (which is the moderator):
+Ingresamos ahora como el moderador:
 
     >>> browser.open(portalURL + '/login_form')
-    >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
-    >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
+    >>> browser.getControl(name='__ac_name').value = MODERATOR_USERNAME
+    >>> browser.getControl(name='__ac_password').value = MODERATOR_PASSWORD
     >>> browser.getControl(name='submit').click()
 
     >>> 'You are now logged in' in browser.contents
@@ -119,7 +162,7 @@ Let's login again as the test user (which is the moderator):
 
     >>> browser.open(session_url)
 
-Questions are now visible:
+Las preguntas son visibles:
 
     >>> 'Test question 1' in browser.contents
     True
@@ -128,7 +171,30 @@ Questions are now visible:
     >>> 'Test question 3' in browser.contents
     True
 
-Let's publish one of the questions, but we need to answer it first:
+
+Salimos nuevamente, e ingresamos como el invitado:
+
+    >>> browser.open(portalURL + '/logout')
+    >>> browser.open(portalURL + '/login_form')
+    >>> browser.getControl(name='__ac_name').value = GUEST_USERNAME
+    >>> browser.getControl(name='__ac_password').value = GUEST_PASSWORD
+    >>> browser.getControl(name='submit').click()
+
+    >>> 'You are now logged in' in browser.contents
+    True
+
+    >>> browser.open(session_url)
+
+Las preguntas son visibles:
+
+    >>> 'Test question 1' in browser.contents
+    True
+    >>> 'Test question 2' in browser.contents
+    True
+    >>> 'Test question 3' in browser.contents
+    True
+
+Vamos a responder alguna de las preguntas y a publicarla:
 
     >>> browser.getLink("Name 1 Country 1 Test question 1").click()
     >>> 'Publish' in browser.contents
@@ -140,14 +206,13 @@ Let's publish one of the questions, but we need to answer it first:
     >>> browser.getControl("Save").click()
     >>> browser.getLink('Publish').click()
 
-Let's go back to the session and check if we see it answered
+Volvemos a la sesion y chequeamos que se encuentre respondida
 
     >>> browser.open(session_url)
     >>> 'Test answer 1' in browser.contents
     True
 
-Let's logut and check that we only see one question and that it
-is the answered one:
+Salimos nuevamente, y chequeamos que solo vemos la pregunta respondida:
 
     >>> browser.open(portalURL + '/logout')
     >>> browser.open(session_url)
@@ -174,13 +239,13 @@ is the answered one:
     >>> 'Test question 2' in browser.contents
     False
 
-And finally, let's go back as the moderator, close the session and recheck
-as anonymous that we see the session and answers but no longer are we able to
-post a question
+Finalmente, volvemos a ingresar, ahora como moderador y cerramos la sesion.
+Vamos a comprobar que los anonimos pueden ver la sesion y las preguntas con
+respuesta, pero no pueden cargar mas preguntas
 
     >>> browser.open(portalURL + '/login_form')
-    >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
-    >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
+    >>> browser.getControl(name='__ac_name').value = MODERATOR_USERNAME
+    >>> browser.getControl(name='__ac_password').value = MODERATOR_PASSWORD
     >>> browser.getControl(name='submit').click()
 
     >>> 'You are now logged in' in browser.contents
