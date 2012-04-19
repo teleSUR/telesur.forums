@@ -15,7 +15,7 @@
 
         <h1 class="documentFirstHeading" tal:content="context/title" />
         <p tal:content="context/description" />
-        
+        <h2 i18n:translate="" tal:condition="view/can_edit">Private Sessions</h2>
         <tal:session tal:condition="view/can_edit" repeat="brain view/get_sessions_private">
           <tal:block define="session brain/getObject">
           <div class="session-item">
@@ -36,7 +36,7 @@
           </div>
           </tal:block>
         </tal:session>
-        
+        <h2 i18n:translate="" tal:condition="view/can_edit">Public Sessions</h2>
         <tal:session repeat="brain view/get_sessions_published">
           <tal:block define="session brain/getObject">
           <div class="session-item">
