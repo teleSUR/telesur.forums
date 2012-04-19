@@ -12,26 +12,36 @@
 
         <link rel="stylesheet" type="text/css" media="screen" href=""
               tal:attributes="href string:${context/absolute_url}/++resource++telesur.forums/styles.css" />
-
-        <img tal:replace="structure view/w/banner/render" tal:condition="context/banner"/>
-
+        <div class="session-banner" tal:define="picture nocall:context/banner"
+                                    tal:condition="picture">
+                <img tal:attributes="src string:${context/absolute_url}/@@download/banner/${picture/filename}"
+                                />
+        </div>
         <h1 class="documentFirstHeading" tal:condition="not:context/banner"
                                          tal:content="context/title" />
 
         <div class="questions-and-answer-section row">
-            <div class="session-left-column cell width-3 position-0">
-                <div tal:replace="structure view/w/guest_photo/render" />
-                <div tal:replace="structure view/w/guest_name/render" />
-                <div tal:replace="structure view/w/guest_description/render" />
+            <div class="session-left-column cell width-7 position-0">
 
+                <div class="session-guest-photo" tal:define="picture nocall:context/guest_photo">
+                        <img tal:attributes="src string:${context/absolute_url}/@@download/guest_photo/${picture/filename}"
+                                        />
+                </div>
+                <div class="guest-data">
+                  <span i18n:translate="">Invited: </span>
+                  <div tal:replace="structure view/w/guest_name/render" />
+                  <div tal:replace="structure view/w/guest_description/render" />
+                </div>
+                <div style="clear:both;"></div>
                 <a href="#" tal:attributes="href string:${context/absolute_url}/++add++telesur.forums.question"
                             tal:condition="view/can_add_question"
                             i18n:translate="">Add question</a>
             </div>
 
-            <div class="session-right-column cell width-14 position-4">
+            <div class="session-right-column cell width-9 position-7">
                 <tal:question repeat="brain view/get_published_questions">
-                <div tal:define="question brain/getObject" class="row">
+                <div tal:define="question brain/getObject" class="row question-item">
+                  <div class="question-head">
                     <div class="name-and-country cell width-3 position-0">
                         <a href="#" tal:attributes="href question/absolute_url"
                                     tal:condition="view/can_edit">
@@ -42,14 +52,18 @@
                         <p class="country"
                                 tal:content="question/country" />
                     </div>
-                    <div class="question cell width-14 position-3">
+                    <div class="question cell width-13 position-3">
                         <p tal:content="question/question" />
                     </div>
-                    <div class="answer row">
+                    <div style="clear:both;"></div>
+                    </div>
+                    <div class="answer" style="clear:both;">
                       <div class="cell width-16 position-0">
                         <p tal:content="question/answer" />
                       </div>
+                      <div style="clear: both;"></div>
                     </div>
+
                 </div>
                 </tal:question>
             </div>
