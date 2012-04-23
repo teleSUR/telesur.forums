@@ -5,13 +5,26 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="telesur.forums">
+
+<metal:styleslot fill-slot="style_slot" >
+
+        <link rel="stylesheet" type="text/css" media="screen" href=""
+              tal:attributes="href string:${context/absolute_url}/++resource++telesur.forums/styles.css" />
+
+</metal:styleslot>
+
+<metal:javascriptslot fill-slot="javascript_head_slot" >
+
+        <script type="text/javascript" src="++resource++telesur.forums/javascript.js">
+        </script>
+
+</metal:javascriptslot>
+
 <body>
 
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
 
-        <link rel="stylesheet" type="text/css" media="screen" href=""
-              tal:attributes="href string:${context/absolute_url}/++resource++telesur.forums/styles.css" />
         <div class="session-banner" tal:define="picture nocall:context/banner"
                                     tal:condition="picture">
                 <img tal:attributes="src string:${context/absolute_url}/@@download/banner/${picture/filename}"
@@ -35,6 +48,7 @@
                 <div style="clear:both;"></div>
                 <a href="#" tal:attributes="href string:${context/absolute_url}/++add++telesur.forums.question"
                             tal:condition="view/can_add_question"
+                            class="question-link edit-question"
                             i18n:translate="">Add question</a>
             </div>
 
@@ -43,10 +57,12 @@
                 <div tal:define="question brain/getObject" class="row question-item">
                   <div class="question-head">
                     <div class="name-and-country cell width-3 position-0">
-                        <a href="#" tal:attributes="href question/absolute_url"
-                                    tal:condition="view/can_edit">
-                                    Edit
-                                    </a>
+                        <a href="#"
+                           tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=reject"
+                           tal:condition="python:view.can_change_question_wf(question)"
+                           class="question-link wf-change">
+                            <span i18n:translate="">Reject question</span>
+                        </a>
                         <span  i18n:translate="">Name:</span>
                         <span tal:content="question/name" />
                         <p class="country"
@@ -74,23 +90,41 @@
             <h2 i18n:translate="">Questions pending review</h2>
             <tal:question repeat="brain view/get_pending_questions">
               <tal:block define="question brain/getObject">
-              <a href="#" tal:attributes="href question/absolute_url">
-                <span class="fullname"
-                      tal:content="question/name" />
-                <span class="country"
-                      tal:content="question/country" />
-                <span class="question"
-                      tal:content="question/question" />
-                <span class="answer"
-                      tal:content="question/answer" />
+              <span class="fullname"
+                    tal:content="question/name" />
+              <span class="country"
+                    tal:content="question/country" />
+              <span class="question"
+                    tal:content="question/question" />
+              <span class="answer"
+                    tal:content="question/answer" />
+              <br/>
+              <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                          tal:condition="python:view.can_edit_question_fields(question)"
+                          class="question-link edit-question"
+                          >
+                <span i18n:translate="">Edit question</span>
               </a>
+              <br/>
+              <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                          tal:condition="python:view.can_answer_question(question)"
+                          class="question-link edit-question"
+                          >
+                <span i18n:translate="">Respond question</span>
+              </a>
+              <br/>
+              <a href="#" tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=reject"
+                          tal:condition="python:view.can_change_question_wf(question)"
+                          class="question-link wf-change">
+                <span i18n:translate="">Reject question</span>
+              </a>
+              <br/>
               </tal:block>
             </tal:question>
 
             <h2 i18n:translate="">Questions rejected</h2>
             <tal:question repeat="brain view/get_rejected_questions">
               <tal:block define="question brain/getObject">
-                <a href="#" tal:attributes="href question/absolute_url">
                 <span class="fullname"
                       tal:content="question/name" />
                 <span class="country"
@@ -99,7 +133,27 @@
                       tal:content="question/question" />
                 <span class="answer"
                       tal:content="question/answer" />
-                </a>
+              <br/>
+              <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                          tal:condition="python:view.can_edit_question_fields(question)"
+                          class="question-link edit-question"
+                          >
+                <span i18n:translate="">Edit question</span>
+              </a>
+              <br/>
+              <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                          tal:condition="python:view.can_answer_question(question)"
+                          class="question-link edit-question"
+                          >
+                <span i18n:translate="">Respond question</span>
+              </a>
+              <br/>
+              <a href="#" tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=retract"
+                           tal:condition="python:view.can_change_question_wf(question)"
+                          class="question-link wf-change">
+                <span i18n:translate="">Retract question</span>
+              </a>
+              <br/>
               </tal:block>
             </tal:question>
         </div>

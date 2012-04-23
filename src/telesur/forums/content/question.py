@@ -9,6 +9,8 @@ from zope import schema
 
 from zope.event import notify
 
+from Products.CMFCore.utils import getToolByName
+
 from zope.lifecycleevent import ObjectMovedEvent
 from OFS.event import ObjectWillBeMovedEvent
 
@@ -19,6 +21,8 @@ from z3c.form.interfaces import IEditForm
 
 from zope.app.container.interfaces import IObjectAddedEvent
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
+from Products.CMFCore.interfaces import IActionSucceededEvent
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
 from zope.container.contained import notifyContainerModified
 
@@ -91,11 +95,28 @@ def rename_after_add(obj, event):
 
 
 @grok.subscribe(IQuestion, IObjectAddedEvent)
-def redirect_after_add(obj, event):
+@grok.subscribe(IQuestion, IActionSucceededEvent)
+def redirect_after_event(obj, event):
     """
     se redirige a la sessión en lugar de permanecer en la pregunta recien
-    cargada
+    cargada.
+    También se redirige a la sesión, luego de cambiar el estado de workflow
     """
 
     parent = obj.aq_inner.aq_parent
     obj.REQUEST.RESPONSE.redirect(parent.absolute_url())
+
+
+@grok.subscribe(IQuestion, IObjectModifiedEvent)
+def publish_after_respond(obj, event):
+    """
+    Se publica la pregunta luego de ser respondida
+    """
+
+    workflowTool = getToolByName(obj, "portal_workflow")
+    chain = workflowTool.getChainForPortalType(obj.portal_type)
+    status = workflowTool.getStatusOf(chain[0], obj)
+    review_state = status['review_state']
+
+    if 'published' not in review_state:
+        workflowTool.doActionFor(obj, "publish")

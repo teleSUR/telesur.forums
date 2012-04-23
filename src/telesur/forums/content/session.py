@@ -89,6 +89,15 @@ class View(dexterity.DisplayForm):
     def can_add_question(self):
         return checkPermission('telesur.forums.questionAddable', self.context)
 
+    def can_edit_question_fields(self, question):
+        return checkPermission('telesur.forums.questionCanEdit', question)
+
+    def can_answer_question(self, question):
+        return checkPermission('telesur.forums.questionCanAnswer', question)
+
+    def can_change_question_wf(self, question):
+        return checkPermission('cmf.ReviewPortalContent', question)
+
     def _get_catalog_results(self, state):
         pc = getToolByName(self.context, 'portal_catalog')
 
