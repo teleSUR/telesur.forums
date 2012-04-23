@@ -41,6 +41,7 @@ setup(name='telesur.forums',
           'collective.prettydate',
           'borg.localrole',
           'plone.namedfile[blobs]',
+          'plone.formwidget.captcha',
       ],
       extras_require={
         'test': ['plone.app.testing'],

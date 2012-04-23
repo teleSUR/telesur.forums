@@ -35,6 +35,7 @@ from plone.dexterity.content import Item
 
 from telesur.forums import _
 
+from plone.formwidget.captcha.widget import CaptchaFieldWidget
 
 class IQuestion(form.Schema):
     """
@@ -65,7 +66,12 @@ class IQuestion(form.Schema):
                           default=u'Enter your question here.'),
             required=True,
         )
-
+    form.omitted(IEditForm, 'captcha')
+    form.widget(captcha=CaptchaFieldWidget)
+    captcha = schema.TextLine(
+            required=True,
+        )
+    
     form.omitted('answer')
     form.no_omit(IEditForm, 'answer')
     answer = schema.Text(
