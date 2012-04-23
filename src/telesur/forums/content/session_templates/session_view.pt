@@ -66,7 +66,7 @@
                         <span  i18n:translate="">Name:</span>
                         <span tal:content="question/name" />
                         <p class="country"
-                                tal:content="question/country" />
+                                tal:content="question/get_country_name" />
                     </div>
                     <div class="question cell width-13 position-3">
                         <p tal:content="question/question" />
@@ -93,7 +93,7 @@
               <span class="fullname"
                     tal:content="question/name" />
               <span class="country"
-                    tal:content="question/country" />
+                    tal:content="question/get_country_name" />
               <span class="question"
                     tal:content="question/question" />
               <span class="answer"
@@ -128,7 +128,7 @@
                 <span class="fullname"
                       tal:content="question/name" />
                 <span class="country"
-                      tal:content="question/country" />
+                      tal:content="question/get_country_name" />
                 <span class="question"
                       tal:content="question/question" />
                 <span class="answer"

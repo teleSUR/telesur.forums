@@ -7,7 +7,11 @@ from Acquisition import aq_base
 from five import grok
 from zope import schema
 
+from zope.component import getUtility
+
 from zope.event import notify
+
+from zope.interface import implements
 
 from Products.CMFCore.utils import getToolByName
 
@@ -23,8 +27,11 @@ from zope.app.container.interfaces import IObjectAddedEvent
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from Products.CMFCore.interfaces import IActionSucceededEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from zope.schema.interfaces import IVocabularyFactory
 
 from zope.container.contained import notifyContainerModified
+
+from plone.dexterity.content import Item
 
 from telesur.forums import _
 
@@ -43,10 +50,11 @@ class IQuestion(form.Schema):
         )
 
     dexterity.write_permission(country='telesur.forums.questionCanEdit')
-    country = schema.TextLine(
+    country = schema.Choice(
             title=_(u'Country'),
             description=_(u'help_country',
-                          default=u'Enter here your country.'),
+                          default=u'Choose your country.'),
+            vocabulary=u"telesur.forums.countries",
             required=True,
         )
 
@@ -66,6 +74,20 @@ class IQuestion(form.Schema):
                           default=u'Enter the answer here.'),
             required=False,
         )
+
+
+class Question(Item):
+    """
+
+    """
+    implements(IQuestion)
+
+    def get_country_name(self):
+        vocab = getUtility(IVocabularyFactory, name="telesur.forums.countries")
+        countries = vocab(self)
+        country = countries.getTermByToken(self.country).title
+
+        return country.lower().capitalize()
 
 
 class canPublishQuestion(grok.View):
@@ -118,5 +140,6 @@ def publish_after_respond(obj, event):
     status = workflowTool.getStatusOf(chain[0], obj)
     review_state = status['review_state']
 
-    if 'published' not in review_state:
-        workflowTool.doActionFor(obj, "publish")
+    if 'answer' in event.descriptions[0].attributes:
+        if 'published' not in review_state:
+            workflowTool.doActionFor(obj, "publish")

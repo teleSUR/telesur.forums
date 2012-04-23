@@ -12,6 +12,7 @@
   <includeDependencies package="." />
 
   <include file="permissions.zcml" />
+  <include file="vocabularies.zcml" />
 
   <grok:grok package="." />
 

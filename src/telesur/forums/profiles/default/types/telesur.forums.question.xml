@@ -19,7 +19,7 @@
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">telesur.forums.questionAddable</property>
- <property name="klass">plone.dexterity.content.Item</property>
+ <property name="klass">telesur.forums.content.question.Question</property>
  <property name="behaviors">
  </property>
  <property name="schema">telesur.forums.content.question.IQuestion</property>

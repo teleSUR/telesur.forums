@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="telesur.forums">
+
+    <utility factory=".vocabularies.CountriesStatesFromFile" />
+
+    <utility
+        component=".vocabularies.Countries"
+        name="telesur.forums.countries"
+        />
+
+    <utility
+        component=".vocabularies.States"
+        name="telesur.forums.states"
+        />
+
+</configure>
