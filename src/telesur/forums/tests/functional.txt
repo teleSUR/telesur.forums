@@ -196,7 +196,7 @@ Las preguntas son visibles:
 
 Vamos a responder alguna de las preguntas y a publicarla:
 
-    >>> browser.getLink("Name 1 Country 1 Test question 1").click()
+    >>> browser.getLink("Respond question", index=0).click()
     >>> 'Publish' in browser.contents
     False
     >>> browser.getLink("Edit").click()
