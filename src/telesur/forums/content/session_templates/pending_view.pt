@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="telesur.forums">
+
+<metal:styleslot fill-slot="style_slot" >
+
+        <link rel="stylesheet" type="text/css" media="screen" href=""
+              tal:attributes="href string:${context/absolute_url}/++resource++telesur.forums/styles.css" />
+
+</metal:styleslot>
+
+<metal:javascriptslot fill-slot="javascript_head_slot" >
+
+        <script type="text/javascript" src="++resource++telesur.forums/javascript.js">
+        </script>
+
+</metal:javascriptslot>
+
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+        <div class="session-banner" tal:define="picture nocall:context/banner"
+                                    tal:condition="picture">
+                <img tal:attributes="src string:${context/absolute_url}/@@download/banner/${picture/filename}"
+                                />
+        </div>
+        <h1 class="documentFirstHeading" tal:condition="not:context/banner"
+                                         tal:content="context/title" />
+
+        <div class="session-bottom-column"
+             tal:condition="view/can_answer">
+            <h2 i18n:translate="">Questions pending review</h2>
+            <tal:question repeat="brain view/get_pending_questions">
+              <tal:block define="question brain/getObject">
+              <span class="fullname"
+                    tal:content="question/name" />
+              <span class="country"
+                    tal:content="question/get_country_name" />
+              <div class="question"
+                    tal:content="question/question" />
+              <div class="answer-pending" tal:condition="python: question.answer"
+                    tal:content="question/answer" />
+              <div class="question-actions">
+                <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                            tal:condition="python:view.can_edit_question_fields(question)"
+                            class="question-link edit-question"
+                            >
+                  <span i18n:translate="">Edit question</span>
+                </a>
+                <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                            tal:condition="python:view.can_answer_question(question)"
+                            class="question-link edit-question"
+                            >
+                  <span i18n:translate="">Respond question</span>
+                </a>
+                <a href="#" tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=reject"
+                            tal:condition="python:view.can_change_question_wf(question)"
+                            class="question-link wf-change">
+                  <span i18n:translate="">Reject question</span>
+                </a>
+              </div>
+              </tal:block>
+            </tal:question>
+        </div>
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

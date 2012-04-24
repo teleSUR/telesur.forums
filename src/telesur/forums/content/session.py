@@ -16,6 +16,7 @@ from zope.security import checkPermission
 
 from telesur.forums import _
 
+grok.templatedir("session_templates")
 
 class ISession(form.Schema):
     """
@@ -125,3 +126,25 @@ class View(dexterity.DisplayForm):
     def get_rejected_questions(self):
         questions = self._get_catalog_results('rejected')
         return questions
+
+class PendingQuestions(View):
+    """ view for al pending questions.
+    """
+    grok.context(ISession)
+    grok.require('zope2.View')
+    grok.name("pending_view")
+    
+    def render(self):
+        pt = ViewPageTemplateFile('session_templates/pending_view.pt')
+        return pt(self)
+
+class RejectedQuestions(View):
+    """ view for al pending questions.
+    """
+    grok.context(ISession)
+    grok.require('zope2.View')
+    grok.name("rejected_view")
+
+    def render(self):
+        pt = ViewPageTemplateFile('session_templates/rejected_view.pt')
+        return pt(self)

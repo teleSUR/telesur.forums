@@ -8,6 +8,12 @@
     height:100%;
 }
 
+.session-right-column {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #CCC ;
+}
+
 .session-title, .session-guest-name, .session-guest-description {
     margin-left: 160px;
 }
@@ -60,9 +66,39 @@
 }
 
 .question-head {
-    background-color: #EEE;
 }
 
 .answer {
-    border: 3px solid #CCC;
+    border: 1px solid #CCC;
+}
+
+.question-actions {
+    margin-bottom: 10px;
+}
+
+#content #ask-question a:link,
+#content a.question-reject:link,
+#content .question-actions a:link,
+#content .question-actions a.link-overlay{
+    margin-right: 10px;
+    font-weight: bold;
+    border-bottom: 0px !important;
+}
+
+#ask-question {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+#form-widgets-guest_name,
+.fullname {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#form-widgets-guest_description {
+    font-size: 11px;
+}
+.country {
+    font-size: 10px;
 }

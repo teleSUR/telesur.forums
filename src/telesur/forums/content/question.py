@@ -11,7 +11,7 @@ from zope.component import getUtility
 
 from zope.event import notify
 
-from zope.interface import implements
+from zope.interface import implements, Invalid
 
 from Products.CMFCore.utils import getToolByName
 
@@ -21,6 +21,7 @@ from OFS.event import ObjectWillBeMovedEvent
 from plone.directives import form, dexterity
 from plone.i18n.normalizer import idnormalizer
 
+from z3c.form import validator
 from z3c.form.interfaces import IEditForm
 
 from zope.app.container.interfaces import IObjectAddedEvent
@@ -36,6 +37,7 @@ from plone.dexterity.content import Item
 from telesur.forums import _
 
 from plone.formwidget.captcha.widget import CaptchaFieldWidget
+from plone.formwidget.captcha.browser.captcha import Captcha, COOKIE_ID
 
 class IQuestion(form.Schema):
     """
@@ -149,3 +151,17 @@ def publish_after_respond(obj, event):
     if 'answer' in event.descriptions[0].attributes:
         if 'published' not in review_state:
             workflowTool.doActionFor(obj, "publish")
+
+
+class CaptchaValidator(validator.SimpleFieldValidator):
+
+    def validate(self, value):
+        super(CaptchaValidator, self).validate(value)
+        view = Captcha(self.context, self.request)
+        if view.verify(value):
+            return True
+        else:
+            raise Invalid(_(u"wrong captcha"))
+
+validator.WidgetValidatorDiscriminators(CaptchaValidator, field=IQuestion['captcha'])
+grok.global_adapter(CaptchaValidator)
