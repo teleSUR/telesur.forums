@@ -96,9 +96,13 @@
     font-size: 13px;
 }
 
-#form-widgets-guest_description p {
-    font-size: 11px;
+#content #form-widgets-guest_description p {
+    font-size: 12px;
 }
 .country {
     font-size: 10px;
+}
+
+#content .question p {
+    font-size: 12px;
 }
