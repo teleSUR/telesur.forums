@@ -7,7 +7,13 @@ from Acquisition import aq_base
 from five import grok
 from zope import schema
 
+from zope.component import getUtility
+
 from zope.event import notify
+
+from zope.interface import implements, Invalid
+
+from Products.CMFCore.utils import getToolByName
 
 from zope.lifecycleevent import ObjectMovedEvent
 from OFS.event import ObjectWillBeMovedEvent
@@ -15,15 +21,23 @@ from OFS.event import ObjectWillBeMovedEvent
 from plone.directives import form, dexterity
 from plone.i18n.normalizer import idnormalizer
 
+from z3c.form import validator
 from z3c.form.interfaces import IEditForm
 
 from zope.app.container.interfaces import IObjectAddedEvent
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
+from Products.CMFCore.interfaces import IActionSucceededEvent
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from zope.schema.interfaces import IVocabularyFactory
 
 from zope.container.contained import notifyContainerModified
 
+from plone.dexterity.content import Item
+
 from telesur.forums import _
 
+from plone.formwidget.captcha.widget import CaptchaFieldWidget
+from plone.formwidget.captcha.browser.captcha import Captcha, COOKIE_ID
 
 class IQuestion(form.Schema):
     """
@@ -39,10 +53,11 @@ class IQuestion(form.Schema):
         )
 
     dexterity.write_permission(country='telesur.forums.questionCanEdit')
-    country = schema.TextLine(
+    country = schema.Choice(
             title=_(u'Country'),
             description=_(u'help_country',
-                          default=u'Enter here your country.'),
+                          default=u'Choose your country.'),
+            vocabulary=u"telesur.forums.countries",
             required=True,
         )
 
@@ -53,7 +68,12 @@ class IQuestion(form.Schema):
                           default=u'Enter your question here.'),
             required=True,
         )
-
+    form.omitted(IEditForm, 'captcha')
+    form.widget(captcha=CaptchaFieldWidget)
+    captcha = schema.TextLine(
+            required=True,
+        )
+    
     form.omitted('answer')
     form.no_omit(IEditForm, 'answer')
     answer = schema.Text(
@@ -62,6 +82,20 @@ class IQuestion(form.Schema):
                           default=u'Enter the answer here.'),
             required=False,
         )
+
+
+class Question(Item):
+    """
+
+    """
+    implements(IQuestion)
+
+    def get_country_name(self):
+        vocab = getUtility(IVocabularyFactory, name="telesur.forums.countries")
+        countries = vocab(self)
+        country = countries.getTermByToken(self.country).title
+
+        return country.lower().capitalize()
 
 
 class canPublishQuestion(grok.View):
@@ -91,11 +125,43 @@ def rename_after_add(obj, event):
 
 
 @grok.subscribe(IQuestion, IObjectAddedEvent)
-def redirect_after_add(obj, event):
+@grok.subscribe(IQuestion, IActionSucceededEvent)
+def redirect_after_event(obj, event):
     """
     se redirige a la sessión en lugar de permanecer en la pregunta recien
-    cargada
+    cargada.
+    También se redirige a la sesión, luego de cambiar el estado de workflow
     """
 
     parent = obj.aq_inner.aq_parent
     obj.REQUEST.RESPONSE.redirect(parent.absolute_url())
+
+
+@grok.subscribe(IQuestion, IObjectModifiedEvent)
+def publish_after_respond(obj, event):
+    """
+    Se publica la pregunta luego de ser respondida
+    """
+
+    workflowTool = getToolByName(obj, "portal_workflow")
+    chain = workflowTool.getChainForPortalType(obj.portal_type)
+    status = workflowTool.getStatusOf(chain[0], obj)
+    review_state = status['review_state']
+
+    if 'answer' in event.descriptions[0].attributes:
+        if 'published' not in review_state:
+            workflowTool.doActionFor(obj, "publish")
+
+
+class CaptchaValidator(validator.SimpleFieldValidator):
+
+    def validate(self, value):
+        super(CaptchaValidator, self).validate(value)
+        view = Captcha(self.context, self.request)
+        if view.verify(value):
+            return True
+        else:
+            raise Invalid(_(u"wrong captcha"))
+
+validator.WidgetValidatorDiscriminators(CaptchaValidator, field=IQuestion['captcha'])
+grok.global_adapter(CaptchaValidator)

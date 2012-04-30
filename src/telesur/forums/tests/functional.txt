@@ -109,20 +109,23 @@ Ahora volvemos a salir, y agregamos 3 preguntas, como anónimo
     >>> 'answer' in browser.contents.lower()
     False
     >>> browser.getControl('Name').value = 'Name 1'
-    >>> browser.getControl('Country').value = 'Country 1'
+    >>> browser.getControl('Country').value = ['AR']
     >>> browser.getControl('Question').value = 'Test question 1'
+    >>> browser.getControl(name='form.widgets.captcha').value = 'Test question 1'
     >>> browser.getControl("Save").click()
 
     >>> browser.getLink('Add question').click()
     >>> browser.getControl('Name').value = 'Name 2'
-    >>> browser.getControl('Country').value = 'Country 2'
+    >>> browser.getControl('Country').value = ['MX']
     >>> browser.getControl('Question').value = 'Test question 2'
+    >>> browser.getControl(name='form.widgets.captcha').value = 'Test question 2'
     >>> browser.getControl("Save").click()
 
     >>> browser.getLink('Add question').click()
     >>> browser.getControl('Name').value = 'Name 3'
-    >>> browser.getControl('Country').value = 'Country 3'
+    >>> browser.getControl('Country').value = ['VE']
     >>> browser.getControl('Question').value = 'Test question 3'
+    >>> browser.getControl(name='form.widgets.captcha').value = 'Test question 3'
     >>> browser.getControl("Save").click()
 
 En este momento, como anonimos, no deberíamos estar viendo ninguna de las
@@ -130,23 +133,23 @@ preguntas, ya que se encuentran privadas
 
     >>> 'Name 1' in browser.contents
     False
-    >>> 'Country 1' in browser.contents
+    >>> 'Argentina' in browser.contents
     False
     >>> 'Test question 1' in browser.contents
     False
 
     >>> 'Name 2' in browser.contents
     False
-    >>> 'Country 2' in browser.contents
+    >>> 'Mexico' in browser.contents
     False
     >>> 'Test question 2' in browser.contents
     False
 
-    >>> 'Name 2' in browser.contents
+    >>> 'Name 3' in browser.contents
     False
-    >>> 'Country 2' in browser.contents
+    >>> 'Venezuela' in browser.contents
     False
-    >>> 'Test question 2' in browser.contents
+    >>> 'Test question 3' in browser.contents
     False
 
 
@@ -196,7 +199,7 @@ Las preguntas son visibles:
 
 Vamos a responder alguna de las preguntas y a publicarla:
 
-    >>> browser.getLink("Name 1 Country 1 Test question 1").click()
+    >>> browser.getLink("Respond question", index=0).click()
     >>> 'Publish' in browser.contents
     False
     >>> browser.getLink("Edit").click()
@@ -218,7 +221,7 @@ Salimos nuevamente, y chequeamos que solo vemos la pregunta respondida:
     >>> browser.open(session_url)
     >>> 'Name 1' in browser.contents
     True
-    >>> 'Country 1' in browser.contents
+    >>> 'Argentina' in browser.contents
     True
     >>> 'Test question 1' in browser.contents
     True
@@ -227,16 +230,16 @@ Salimos nuevamente, y chequeamos que solo vemos la pregunta respondida:
 
     >>> 'Name 2' in browser.contents
     False
-    >>> 'Country 2' in browser.contents
+    >>> 'Mexico' in browser.contents
     False
     >>> 'Test question 2' in browser.contents
     False
 
-    >>> 'Name 2' in browser.contents
+    >>> 'Name 3' in browser.contents
     False
-    >>> 'Country 2' in browser.contents
+    >>> 'Venezuela' in browser.contents
     False
-    >>> 'Test question 2' in browser.contents
+    >>> 'Test question 3' in browser.contents
     False
 
 Finalmente, volvemos a ingresar, ahora como moderador y cerramos la sesion.
@@ -258,7 +261,7 @@ respuesta, pero no pueden cargar mas preguntas
     >>> browser.open(session_url)
     >>> 'Name 1' in browser.contents
     True
-    >>> 'Country 1' in browser.contents
+    >>> 'Argentina' in browser.contents
     True
     >>> 'Test question 1' in browser.contents
     True
@@ -267,16 +270,16 @@ respuesta, pero no pueden cargar mas preguntas
 
     >>> 'Name 2' in browser.contents
     False
-    >>> 'Country 2' in browser.contents
+    >>> 'Mexico' in browser.contents
     False
     >>> 'Test question 2' in browser.contents
     False
 
-    >>> 'Name 2' in browser.contents
+    >>> 'Name 3' in browser.contents
     False
-    >>> 'Country 2' in browser.contents
+    >>> 'Venezuela' in browser.contents
     False
-    >>> 'Test question 2' in browser.contents
+    >>> 'Test question 3' in browser.contents
     False
 
     >>> 'Add question' in browser.contents
