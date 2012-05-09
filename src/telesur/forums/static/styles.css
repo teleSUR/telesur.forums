@@ -8,10 +8,18 @@
     height:100%;
 }
 
+.session-quesion-answered,
 .session-right-column {
     padding: 10px;
     border-radius: 15px;
     border: 1px solid #CCC ;
+    padding: 10px;
+    position: relative;
+    top: 10px;
+}
+
+.session-right-column {
+    padding-bottom: 20px;
 }
 
 .session-title, .session-guest-name, .session-guest-description {
@@ -87,7 +95,21 @@
 
 #ask-question {
     margin-top: 10px;
-    font-size: 15px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#content #ask-question a.question-link:link {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #CCC;
+    border-bottom: 1px solid #CCC !important;
+    margin-bottom: 10px;
+}
+
+#not-answer-text {
+    margin: 30px;
 }
 
 #form-widgets-guest_name,

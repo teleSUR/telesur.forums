@@ -133,6 +133,10 @@ class View(dexterity.DisplayForm):
     def get_rejected_questions(self):
         questions = self._get_catalog_results('rejected')
         return questions
+    
+    def no_questions(self):
+        return len(self.get_published_questions()) == 0
+    
 
 class PendingQuestions(View):
     """ view for al pending questions.

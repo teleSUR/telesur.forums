@@ -39,12 +39,6 @@
                 <div class="session-guest-photo" tal:define="picture nocall:context/guest_photo">
                         <img tal:attributes="src string:${context/absolute_url}/@@download/guest_photo/${picture/filename}"
                                         />
-                                        <div id="ask-question">
-                                          <a href="#" tal:attributes="href string:${context/absolute_url}/++add++telesur.forums.question"
-                                                    tal:condition="view/can_add_question"
-                                                    class="question-link edit-question"
-                                                    i18n:translate="">Add question</a>
-                                        </div>
                 </div>
                 <div class="guest-data">
                   <span i18n:translate="">Invited: </span>
@@ -56,6 +50,16 @@
             </div>
 
             <div class="session-right-column cell width-9 position-7">
+              <div id="ask-question">
+                <a href="#" tal:attributes="href string:${context/absolute_url}/++add++telesur.forums.question"
+                          tal:condition="view/can_add_question"
+                          class="question-link edit-question"
+                          i18n:translate="">Add question</a>
+                          <div id="not-answer-text" tal:condition="view/no_questions" i18n:translate="">
+                             Todavia no hay preguntas respondidas
+                          </div>
+              </div>
+              <div class="session-quesion-answered" tal:condition="python: not view.no_questions()">
                 <tal:question repeat="brain view/get_published_questions">
                 <div tal:define="question brain/getObject" class="row question-item">
                   <div class="question-head">
@@ -84,6 +88,8 @@
                     </a>
                 </div>
                 </tal:question>
+                <div style="clear:both"></div>
+              </div>
             </div>
         </div>
 
