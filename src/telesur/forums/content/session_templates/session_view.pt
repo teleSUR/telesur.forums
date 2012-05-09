@@ -32,7 +32,13 @@
         </div>
         <h1 class="documentFirstHeading" tal:condition="not:context/banner"
                                          tal:content="context/title" />
-
+          <div id="session-tabs-container" class="row" tal:condition="view/can_answer">
+             <ul class="session-tabs">
+             	<li><a href="#" i18n:translate="">Respondidas</a>|</li>
+             	<li><a href="#" i18n:translate="">Pendientes</a>|</li>
+             	<li><a href="#" i18n:translate="">Rechazadas</a></li>
+             </ul>
+          </div>                               
         <div class="questions-and-answer-section row">
             <div class="session-left-column cell width-7 position-0">
 
@@ -56,7 +62,7 @@
                           class="question-link edit-question"
                           i18n:translate="">Add question</a>
                           <div id="not-answer-text" tal:condition="view/no_questions" i18n:translate="">
-                             Todavia no hay preguntas respondidas
+                             Todavía no hay preguntas respondidas
                           </div>
               </div>
               <div class="session-quesion-answered" tal:condition="python: not view.no_questions()">
@@ -90,6 +96,80 @@
                 </tal:question>
                 <div style="clear:both"></div>
               </div>
+            </div>
+            <div class="session-right-column cell width-9 position-7" tal:condition="view/can_answer"><div class="session-bottom-column"
+                 tal:condition="view/can_answer">
+                <h2 i18n:translate="">Questions pending review</h2>
+                <tal:question repeat="brain view/get_pending_questions">
+                  <tal:block define="question brain/getObject">
+                  <span class="fullname"
+                        tal:content="question/name" />
+                  <span class="country"
+                        tal:content="question/get_country_name" />
+                  <div class="question"
+                        tal:content="question/question" />
+                  <div class="answer-pending" tal:condition="python: question.answer"
+                        tal:content="question/answer" />
+                  <div class="question-actions">
+                    <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                                tal:condition="python:view.can_edit_question_fields(question)"
+                                class="question-link edit-question"
+                                >
+                      <span i18n:translate="">Edit question</span>
+                    </a>
+                    <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                                tal:condition="python:view.can_answer_question(question)"
+                                class="question-link edit-question"
+                                >
+                      <span i18n:translate="">Respond question</span>
+                    </a>
+                    <a href="#" tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=reject"
+                                tal:condition="python:view.can_change_question_wf(question)"
+                                class="question-link wf-change">
+                      <span i18n:translate="">Reject question</span>
+                    </a>
+                  </div>
+                  </tal:block>
+                </tal:question>
+            </div>
+            </div>
+            <div class="session-right-column cell width-9 position-7" tal:condition="view/can_answer">
+              <div class="session-bottom-column"
+                   tal:condition="view/can_answer">
+                   <h2 i18n:translate="">Questions rejected</h2>
+                   <tal:question repeat="brain view/get_rejected_questions">
+                     <tal:block define="question brain/getObject">
+                       <span class="fullname"
+                             tal:content="question/name" />
+                       <span class="country"
+                             tal:content="question/get_country_name" />
+                       <div class="question"
+                             tal:content="question/question" />
+                       <div class="answer-pending"
+                             tal:content="question/answer"  tal:condition="python: question.answer"/>
+                     <div class="question-actions">
+                       <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                                   tal:condition="python:view.can_edit_question_fields(question)"
+                                   class="question-link edit-question"
+                                   >
+                         <span i18n:translate="">Edit question</span>
+                       </a>
+                       <a href="#" tal:attributes="href string:${question/absolute_url}/edit"
+                                   tal:condition="python:view.can_answer_question(question)"
+                                   class="question-link edit-question"
+                                   >
+                         <span i18n:translate="">Respond question</span>
+                       </a>
+                       <a href="#" tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=retract"
+                                    tal:condition="python:view.can_change_question_wf(question)"
+                                   class="question-link wf-change">
+                         <span i18n:translate="">Retract question</span>
+                       </a>
+                      </div>
+                     </tal:block>
+                   </tal:question>
+              </div>
+              
             </div>
         </div>
 

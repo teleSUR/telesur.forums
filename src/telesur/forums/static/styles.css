@@ -128,3 +128,28 @@
 #content .question p {
     font-size: 12px;
 }
+
+#content #session-tabs-container {
+    text-align: right;
+    margin-top: 10px;
+}
+
+#content .session-tabs {
+    text-align: center;
+    width: 100%;
+    float:right;
+    border: 1px solid #CCC;
+    border-bottom: 1px solid #CCC !important;
+    padding: 10px 0px;
+    border-radius: 15px;
+}
+
+#content .session-tabs li{
+    display: inline;
+    font-size: 17px;
+}
+
+#content .session-tabs li a:link {
+    border:0;
+    padding: 20px;
+}

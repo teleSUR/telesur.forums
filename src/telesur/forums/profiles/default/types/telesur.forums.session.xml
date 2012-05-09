@@ -42,14 +42,4 @@
     visible="True">
   <permission value="Modify portal content"/>
  </action>
- <action title="Pending" action_id="pending_view" category="object" condition_expr=""
-    icon_expr="" link_target="" url_expr="string:${object_url}/pending_view"
-    visible="True">
-  <permission value="Modify portal content"/>
- </action>
- <action title="Rejected" action_id="rejected_view" category="object" condition_expr=""
-    icon_expr="" link_target="" url_expr="string:${object_url}/rejected_view"
-    visible="True">
-  <permission value="Modify portal content"/>
- </action>
 </object>

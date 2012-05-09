@@ -136,26 +136,3 @@ class View(dexterity.DisplayForm):
     
     def no_questions(self):
         return len(self.get_published_questions()) == 0
-    
-
-class PendingQuestions(View):
-    """ view for al pending questions.
-    """
-    grok.context(ISession)
-    grok.require('zope2.View')
-    grok.name("pending_view")
-    
-    def render(self):
-        pt = ViewPageTemplateFile('session_templates/pending_view.pt')
-        return pt(self)
-
-class RejectedQuestions(View):
-    """ view for al pending questions.
-    """
-    grok.context(ISession)
-    grok.require('zope2.View')
-    grok.name("rejected_view")
-
-    def render(self):
-        pt = ViewPageTemplateFile('session_templates/rejected_view.pt')
-        return pt(self)

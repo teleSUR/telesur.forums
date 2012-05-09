@@ -20,5 +20,5 @@ $(document).ready(function() {
         });
 
     $('a.wf-change').click(changeState);
-
+    $("ul.session-tabs").tabs("div.session-right-column");
 });
