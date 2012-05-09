@@ -3,8 +3,10 @@
 from five import grok
 from zope import schema
 
+from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
 from plone.app.textfield import RichText
 from plone.namedfile.field import NamedBlobImage
+
 
 from plone.directives import dexterity, form
 
@@ -67,6 +69,11 @@ class ISession(form.Schema):
                           default=u'Enter the banner you want to show on top of the session.'),
             required=False,
         )
+
+@form.default_value(field = IExcludeFromNavigation['exclude_from_nav'])
+def excludeFromNavDefaultValue(data):
+    return data.request.URL.endswith('++add++telesur.forums.session')
+    
 
 
 class View(dexterity.DisplayForm):

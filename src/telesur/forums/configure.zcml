@@ -13,7 +13,10 @@
 
   <include file="permissions.zcml" />
   <include file="vocabularies.zcml" />
-
+  
+  <include package="plone.directives.form" file="meta.zcml" />
+  <include package="plone.directives.form" />
+  
   <grok:grok package="." />
 
   <genericsetup:registerProfile

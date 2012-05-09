@@ -25,6 +25,7 @@
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
+  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
  </property>
  <property name="schema">telesur.forums.content.session.ISession</property>
  <alias from="(Default)" to="(dynamic view)"/>
