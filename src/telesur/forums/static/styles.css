@@ -153,3 +153,24 @@
     border:0;
     padding: 20px;
 }
+
+#pagination {
+    width: 100%;
+    border-top: 1px solid #CCC;
+    margin-top: 20px;
+}
+
+#pagination-right {
+    float: right;
+    padding-top: 10px;
+}
+
+#pagination-left {
+    float: left;
+    padding-top: 10px;
+}
+
+#content .paginate-questions a:link {
+    border-bottom: 0;
+    font-size: 20px;
+}

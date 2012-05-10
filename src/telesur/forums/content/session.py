@@ -74,13 +74,19 @@ class ISession(form.Schema):
 def excludeFromNavDefaultValue(data):
     return data.request.URL.endswith('++add++telesur.forums.session')
     
-
+LIMIT = 20
 
 class View(dexterity.DisplayForm):
     grok.context(ISession)
     grok.require('zope2.View')
-
+    
+    def upate(self):
+        self.limit = 0
+        self.pag = 1
+        
     def render(self):
+        self.limit = 0
+        self.pag = 1
         pt = ViewPageTemplateFile('session_templates/session_view.pt')
 
         if not self.can_edit():
@@ -88,6 +94,19 @@ class View(dexterity.DisplayForm):
 
         return pt(self)
 
+    def actual_pag(self):
+        return self.pag
+
+    def can_paginate(self):
+        return len(self.get_published_questions()) > LIMIT
+    
+    def paginate_right(self):
+        return len(self.get_published_questions()) > LIMIT*self.pag
+    
+    def paginate_left(self):
+        return self.pag != 1
+    
+        
     def can_edit(self):
         return checkPermission('cmf.ModifyPortalContent', self.context)
 
@@ -125,6 +144,10 @@ class View(dexterity.DisplayForm):
     def get_published_questions(self):
         questions = self._get_catalog_results('published')
         return questions
+    
+    def get_published_questions_limit(self):
+        questions = self.get_published_questions()[LIMIT*(self.pag-1):LIMIT*self.pag]
+        return questions
 
     def get_pending_questions(self):
         questions = self._get_catalog_results('pending_review')
@@ -136,3 +159,23 @@ class View(dexterity.DisplayForm):
     
     def no_questions(self):
         return len(self.get_published_questions()) == 0
+        
+class SessionAjaxPagination(View):
+    grok.context(ISession)
+    grok.require('zope2.View')
+    grok.name("session-view-pag")
+
+    def update(self):
+        self.limit = 0
+        self.pag = 1
+        page = int(self.request['b_start'])
+        side = self.request['side']
+        if side == "pagination-right":
+            self.pag = page + 1
+        else:
+            self.pag = page - 1
+
+    def render(self):
+        pt = ViewPageTemplateFile('session_templates/session_view_pag.pt')
+        return pt(self)
+    

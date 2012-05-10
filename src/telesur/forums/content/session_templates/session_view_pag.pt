@@ -1,0 +1,37 @@
+
+   <tal:question repeat="brain view/get_published_questions_limit">
+   <div tal:define="question brain/getObject" class="row question-item">
+     <div class="question-head">
+       <div class="name-and-country">
+           <span class="fullname" tal:content="question/name" />
+           <span class="country"
+                   tal:content="question/get_country_name" />
+       </div>
+       <div class="question">
+           <p tal:content="question/question" />
+       </div>
+       <div style="clear:both;"></div>
+       </div>
+       <div class="answer" style="clear:both;">
+         <div class="cell width-16 position-0">
+           <p tal:content="question/answer" />
+         </div>
+         <div style="clear: both;"></div>
+         
+       </div>
+       <a href="#"
+          tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=reject"
+          tal:condition="python:view.can_change_question_wf(question)"
+          class="question-link wf-change question-reject">
+           <span i18n:translate="">Reject question</span>
+       </a>
+   </div>
+   </tal:question>
+   <div style="clear:both"></div>
+   <div id="pagination" tal:condition="view/can_paginate">
+     <div id="pagination-left" class="paginate-questions" tal:condition="view/paginate_left"><a href="#" tal:attributes="redirect python:context.absolute_url();
+      actual python:view.actual_pag()"><<<</a></div>
+     <div id="pagination-right" class="paginate-questions" tal:condition="view/paginate_right"><a href="#"  tal:attributes="redirect python:context.absolute_url();
+       actual python:view.actual_pag()">>>></a></div>
+     <div style="clear:both"></div>
+     </div>
