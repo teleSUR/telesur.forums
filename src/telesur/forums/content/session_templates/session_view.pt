@@ -172,7 +172,7 @@
               
             </div>
         </div>
-
+           <div style="clear:both;"></div>         
     </tal:main-macro>
 </metal:main>
 
