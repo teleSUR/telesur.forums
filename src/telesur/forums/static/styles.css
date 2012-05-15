@@ -174,3 +174,22 @@
     border-bottom: 0;
     font-size: 20px;
 }
+
+.portaltype-telesur-forums-session .overlay #form-buttons-cancel,
+.portaltype-telesur-forums-session .overlay #form-buttons-save {
+    font-size: 15px;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+.portaltype-telesur-forums-session .overlay #form-buttons-save {
+    margin-left: 35%;
+}
+
+.portaltype-telesur-forums-session .overlay .discreet {
+    display: none;
+}
+
+.captchaAudio {
+    display: none;
+}

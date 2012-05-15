@@ -47,6 +47,7 @@
                                         />
                 </div>
                 <div class="guest-data">
+                  <div tal:content="structure view/w/date/render" />
                   <span i18n:translate="">Invited: </span>
                   <div tal:replace="structure view/w/guest_name/render" />
                   <div tal:replace="structure view/w/guest_description/render" />

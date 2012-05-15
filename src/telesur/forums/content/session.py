@@ -48,14 +48,7 @@ class ISession(form.Schema):
                           default=u'Enter here the guest\'s fullname.'),
             required=True,
         )
-
-    guest_description = RichText(
-            title=_(u'Guest Description'),
-            description=_(u'help_guest_description',
-                          default=u'Enter here the guest\'s description.'),
-            required=False,
-        )
-
+    
     guest_photo = NamedBlobImage(
             title=_(u'Guest Photo'),
             description=_(u'help_guest_photo',
@@ -63,6 +56,15 @@ class ISession(form.Schema):
             required=True,
         )
 
+    guest_description = RichText(
+            title=_(u'Guest Description'),
+            description=_(u'help_guest_description',
+                          default=u'Enter here the guest\'s description.'),
+            required=False,
+        )
+        
+    date = schema.Date(title=_(u'Date'), required=False)
+    
     banner = NamedBlobImage(
             title=_(u'Banner'),
             description=_(u'help_banner',
