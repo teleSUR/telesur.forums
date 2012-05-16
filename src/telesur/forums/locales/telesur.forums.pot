@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-04-26 02:14+0000\n"
+"POT-Creation-Date: 2012-05-16 19:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "A list of states"
 msgstr ""
 
-#: telesur/forums/content/session_templates/session_view.pt:43
+#: telesur/forums/content/session_templates/session_view.pt:61
 msgid "Add question"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Answer"
 msgstr ""
 
-#: telesur/forums/content/session.py:65
+#: telesur/forums/content/session.py:69
 msgid "Banner"
 msgstr ""
 
@@ -45,37 +45,50 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: telesur/forums/content/session_templates/pending_view.pt:54
-#: telesur/forums/content/session_templates/rejected_view.pt:54
-msgid "Edit question"
+#: telesur/forums/content/session.py:66
+msgid "Date"
 msgstr ""
 
-#: telesur/forums/content/session.py:36
+#: telesur/forums/profiles/default/types/telesur.forums.forum.xml
+msgid "Forum"
+msgstr ""
+
+#: telesur/forums/content/session.py:38
 msgid "Guest"
 msgstr ""
 
-#: telesur/forums/content/session.py:51
+#: telesur/forums/content/session.py:60
 msgid "Guest Description"
 msgstr ""
 
-#: telesur/forums/content/session.py:44
+#: telesur/forums/content/session.py:46
 msgid "Guest Name"
 msgstr ""
 
-#: telesur/forums/content/session.py:58
+#: telesur/forums/content/session.py:53
 msgid "Guest Photo"
 msgstr ""
 
-#: telesur/forums/content/session_templates/session_view.pt:50
+#: telesur/forums/content/session_templates/session_view.pt:51
 msgid "Invited:"
 msgstr ""
 
-#: telesur/forums/content/session.py:27
+#: telesur/forums/content/session.py:29
 msgid "Moderator"
 msgstr ""
 
 #: telesur/forums/content/question.py:49
 msgid "Name"
+msgstr ""
+
+#: telesur/forums/profiles/default/types/telesur.forums.forum.xml
+#: telesur/forums/profiles/default/types/telesur.forums.question.xml
+#: telesur/forums/profiles/default/types/telesur.forums.session.xml
+msgid "None"
+msgstr ""
+
+#: telesur/forums/content/session_templates/session_view.pt:38
+msgid "Pendientes"
 msgstr ""
 
 #: telesur/forums/content/forum_templates/forum_view.pt:18
@@ -87,29 +100,20 @@ msgid "Public Sessions"
 msgstr ""
 
 #: telesur/forums/content/question.py:66
+#: telesur/forums/profiles/default/types/telesur.forums.question.xml
 msgid "Question"
 msgstr ""
 
-#: telesur/forums/content/session_templates/pending_view.pt:38
-msgid "Questions pending review"
+#: telesur/forums/content/session_templates/session_view.pt:39
+msgid "Rechazadas"
 msgstr ""
 
-#: telesur/forums/content/session_templates/rejected_view.pt:38
-msgid "Questions rejected"
+#: telesur/forums/content/session_templates/session_view.pt:37
+msgid "Respondidas"
 msgstr ""
 
-#: telesur/forums/content/session_templates/pending_view.pt:65
-#: telesur/forums/content/session_templates/session_view.pt:83
-msgid "Reject question"
-msgstr ""
-
-#: telesur/forums/content/session_templates/pending_view.pt:60
-#: telesur/forums/content/session_templates/rejected_view.pt:60
-msgid "Respond question"
-msgstr ""
-
-#: telesur/forums/content/session_templates/rejected_view.pt:65
-msgid "Retract question"
+#: telesur/forums/profiles/default/types/telesur.forums.session.xml
+msgid "Session"
 msgstr ""
 
 #: telesur/forums/vocabularies.py:19
@@ -122,7 +126,7 @@ msgid "help_answer"
 msgstr ""
 
 #. Default: "Enter the banner you want to show on top of the session."
-#: telesur/forums/content/session.py:66
+#: telesur/forums/content/session.py:70
 msgid "help_banner"
 msgstr ""
 
@@ -132,27 +136,27 @@ msgid "help_country"
 msgstr ""
 
 #. Default: "Choose the guest for the session."
-#: telesur/forums/content/session.py:37
+#: telesur/forums/content/session.py:39
 msgid "help_guest"
 msgstr ""
 
 #. Default: "Enter here the guest's description."
-#: telesur/forums/content/session.py:52
+#: telesur/forums/content/session.py:61
 msgid "help_guest_description"
 msgstr ""
 
 #. Default: "Enter here the guest's fullname."
-#: telesur/forums/content/session.py:45
+#: telesur/forums/content/session.py:47
 msgid "help_guest_name"
 msgstr ""
 
 #. Default: "Enter here the guest's photo."
-#: telesur/forums/content/session.py:59
+#: telesur/forums/content/session.py:54
 msgid "help_guest_photo"
 msgstr ""
 
 #. Default: "Choose a user that will be a moderator for the session."
-#: telesur/forums/content/session.py:28
+#: telesur/forums/content/session.py:30
 msgid "help_moderator"
 msgstr ""
 
