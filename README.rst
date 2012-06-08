@@ -35,6 +35,15 @@ Autor(es) Original(es)
 
 * Franco Pellegrini aka frapell
 
+Colaboraciones impresionantes
+=============================
+
+* Juan Díaz aka nueces
+
+* Gonzalo Almeida aka flecox
+
+* Héctor Velarde aka hvelarde
+
 Para una lista actualizada de todo los colaboradores visite: https://github.com/teleSUR/telesur.forums/contributors
 
 .. _Foros Telesur: http://exwebserv.telesurtv.net/secciones/pforos/listado.php
