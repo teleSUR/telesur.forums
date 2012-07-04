@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-16 19:05+0000\n"
+"POT-Creation-Date: 2012-07-04 20:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,6 +49,10 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: telesur/forums/content/session_templates/session_view.pt:128
+msgid "Edit question"
+msgstr ""
+
 #: telesur/forums/profiles/default/types/telesur.forums.forum.xml
 msgid "Forum"
 msgstr ""
@@ -88,7 +92,7 @@ msgid "None"
 msgstr ""
 
 #: telesur/forums/content/session_templates/session_view.pt:38
-msgid "Pendientes"
+msgid "Pending"
 msgstr ""
 
 #: telesur/forums/content/forum_templates/forum_view.pt:18
@@ -104,16 +108,40 @@ msgstr ""
 msgid "Question"
 msgstr ""
 
+#: telesur/forums/content/session_templates/session_view.pt:112
+msgid "Questions pending review"
+msgstr ""
+
+#: telesur/forums/content/session_templates/session_view.pt:149
+msgid "Questions rejected"
+msgstr ""
+
+#: telesur/forums/content/session_templates/session_view.pt:94
+msgid "Reject question"
+msgstr ""
+
 #: telesur/forums/content/session_templates/session_view.pt:39
-msgid "Rechazadas"
+msgid "Rejected"
+msgstr ""
+
+#: telesur/forums/content/session_templates/session_view.pt:134
+msgid "Respond question"
 msgstr ""
 
 #: telesur/forums/content/session_templates/session_view.pt:37
-msgid "Respondidas"
+msgid "Responded"
+msgstr ""
+
+#: telesur/forums/content/session_templates/session_view.pt:176
+msgid "Retract question"
 msgstr ""
 
 #: telesur/forums/profiles/default/types/telesur.forums.session.xml
 msgid "Session"
+msgstr ""
+
+#: telesur/forums/content/session_templates/session_view.pt:65
+msgid "There are no answered questions yet"
 msgstr ""
 
 #: telesur/forums/vocabularies.py:19

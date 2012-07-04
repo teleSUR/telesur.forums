@@ -34,9 +34,9 @@
                                          tal:content="context/title" />
           <div id="session-tabs-container" class="row" tal:condition="view/can_answer">
              <ul class="session-tabs">
-             	<li><a href="#" i18n:translate="">Respondidas</a>|</li>
-             	<li><a href="#" i18n:translate="">Pendientes</a>|</li>
-             	<li><a href="#" i18n:translate="">Rechazadas</a></li>
+             	<li><a href="#" i18n:translate="">Responded</a>|</li>
+             	<li><a href="#" i18n:translate="">Pending</a>|</li>
+             	<li><a href="#" i18n:translate="">Rejected</a></li>
              </ul>
           </div>                               
         <div class="questions-and-answer-section row">
@@ -63,7 +63,7 @@
                           class="question-link edit-question"
                           i18n:translate="">Add question</a>
                           <div id="not-answer-text" tal:condition="view/no_questions" i18n:translate="">
-                             Todavía no hay preguntas respondidas
+                             There are no answered questions yet
                           </div>
               </div>
               <div class="session-quesion-answered" tal:condition="python: not view.no_questions()">

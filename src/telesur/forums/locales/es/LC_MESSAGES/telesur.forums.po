@@ -2,10 +2,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-05-16 19:05+0000\n"
-"PO-Revision-Date: 2012-04-30 16:33-0300\n"
-"Last-Translator: Héctor Velarde <hector.velarde@gmail.com>\n"
-"Language-Team: Spanish <>\n"
+"POT-Creation-Date: 2012-07-04 20:20+0000\n"
+"PO-Revision-Date: 2012-07-04 17:21-0300\n"
+"Last-Translator: \n"
+"Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: telesur.forums\n"
 "Language: es\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: telesur/forums/vocabularies.py:48
 msgid "(no value)"
@@ -48,6 +48,10 @@ msgstr "País"
 #: telesur/forums/content/session.py:66
 msgid "Date"
 msgstr "Fecha"
+
+#: telesur/forums/content/session_templates/session_view.pt:128
+msgid "Edit question"
+msgstr "Editar pregunta"
 
 #: telesur/forums/profiles/default/types/telesur.forums.forum.xml
 msgid "Forum"
@@ -88,8 +92,8 @@ msgid "None"
 msgstr "Nada"
 
 #: telesur/forums/content/session_templates/session_view.pt:38
-msgid "Pendientes"
-msgstr ""
+msgid "Pending"
+msgstr "Pendiente"
 
 #: telesur/forums/content/forum_templates/forum_view.pt:18
 msgid "Private Sessions"
@@ -104,17 +108,41 @@ msgstr "Sesiones públicas"
 msgid "Question"
 msgstr "Pregunta"
 
+#: telesur/forums/content/session_templates/session_view.pt:112
+msgid "Questions pending review"
+msgstr "Preguntas pendiente de revisión"
+
+#: telesur/forums/content/session_templates/session_view.pt:149
+msgid "Questions rejected"
+msgstr "Preguntas rechazadas"
+
+#: telesur/forums/content/session_templates/session_view.pt:94
+msgid "Reject question"
+msgstr "Rechazar pregunta"
+
 #: telesur/forums/content/session_templates/session_view.pt:39
-msgid "Rechazadas"
-msgstr ""
+msgid "Rejected"
+msgstr "Rechazada"
+
+#: telesur/forums/content/session_templates/session_view.pt:134
+msgid "Respond question"
+msgstr "Responder pregunta"
 
 #: telesur/forums/content/session_templates/session_view.pt:37
-msgid "Respondidas"
-msgstr ""
+msgid "Responded"
+msgstr "Respondida"
+
+#: telesur/forums/content/session_templates/session_view.pt:176
+msgid "Retract question"
+msgstr "Retraer pregunta"
 
 #: telesur/forums/profiles/default/types/telesur.forums.session.xml
 msgid "Session"
 msgstr "Sesión"
+
+#: telesur/forums/content/session_templates/session_view.pt:65
+msgid "There are no answered questions yet"
+msgstr "Todavía no hay preguntas respondidas"
 
 #: telesur/forums/vocabularies.py:19
 msgid "countries"
@@ -128,7 +156,8 @@ msgstr "Ingrese aquí la respuesta."
 #. Default: "Enter the banner you want to show on top of the session."
 #: telesur/forums/content/session.py:70
 msgid "help_banner"
-msgstr "Agregue aquí el banner que quiere mostrar en la parte superior de la sesión."
+msgstr ""
+"Agregue aquí el banner que quiere mostrar en la parte superior de la sesión."
 
 #. Default: "Choose your country."
 #: telesur/forums/content/question.py:58
@@ -158,7 +187,8 @@ msgstr "Ingrese aquí una foto del invitado."
 #. Default: "Choose a user that will be a moderator for the session."
 #: telesur/forums/content/session.py:30
 msgid "help_moderator"
-msgstr "Seleccione un usuario que va a cumplir el rol de moderador en la sesión."
+msgstr ""
+"Seleccione un usuario que va a cumplir el rol de moderador en la sesión."
 
 #. Default: "Enter here your full name."
 #: telesur/forums/content/question.py:50
@@ -177,4 +207,5 @@ msgstr "estados"
 #: telesur/forums/content/question.py:164
 msgid "wrong captcha"
 msgstr "código de la imagen incorrecto"
+
 
