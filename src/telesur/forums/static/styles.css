@@ -22,7 +22,7 @@
     padding-bottom: 20px;
 }
 
-.session-title, .session-guest-name, .session-guest-description {
+.session-title, .session-guest-name, .session-guest-description, .session-date {
     margin-left: 160px;
 }
 
