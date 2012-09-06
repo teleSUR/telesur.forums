@@ -29,11 +29,19 @@
               <div class="session-guest-name">
                 <span tal:content="session/guest_name" />
               </div>
-              <div class="session-guest-description">
-                <span tal:condition="session/guest_description"
-                      tal:replace="structure session/guest_description/output" />
-              </div>
+              <div class="session-guest-description" tal:condition="session/guest_description">
+                  <span tal:condition="session/guest_description"
+                        tal:replace="structure session/guest_description/output" />
+                </div>
+                <div class="session-guest-description" tal:condition="not:session/guest_description">
+                    <span tal:condition="session/Description"
+                          tal:replace="structure session/Description" />
+                  </div>
+               <div class="session-date">
+                    <span tal:content="python:view.get_date(session)" />
+                  </div>
               <div style="clear:both;"></div>
+             
           </div>
           </tal:block>
         </tal:session>
@@ -51,10 +59,17 @@
               <div class="session-guest-name">
                 <span tal:content="session/guest_name" />
               </div>
-              <div class="session-guest-description">
+              <div class="session-guest-description" tal:condition="session/guest_description">
                 <span tal:condition="session/guest_description"
                       tal:replace="structure session/guest_description/output" />
               </div>
+              <div class="session-guest-description" tal:condition="not:session/guest_description">
+                  <span tal:condition="session/Description"
+                        tal:replace="structure session/Description" />
+                </div>
+               <div class="session-date">
+                    <span tal:content="python:view.get_date(session)" />
+               </div>
               <div style="clear:both;"></div>
             </div>
           </tal:block>

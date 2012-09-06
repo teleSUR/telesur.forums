@@ -25,6 +25,12 @@ class View(dexterity.DisplayForm):
    
     def can_edit(self):
         return checkPermission('cmf.ModifyPortalContent', self.context)
+        
+    def get_date(self, session):
+        date = ""
+        if session.date:
+            date = session.date.strftime("%d/%m/%Y")
+        return date
    
     def get_sessions_published(self):
         return self.get_sessions("published")
