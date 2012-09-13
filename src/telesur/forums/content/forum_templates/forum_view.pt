@@ -12,9 +12,7 @@
 
         <link rel="stylesheet" type="text/css" media="screen" href=""
               tal:attributes="href string:${context/absolute_url}/++resource++telesur.forums/styles.css" />
-
-        <h1 class="documentFirstHeading" tal:content="context/title" />
-        <p tal:content="context/description" />
+        <img tal:attributes="src string:${context/absolute_url}/++resource++telesur.forums/cintillo_superior.jpg" />
         <h2 i18n:translate="" tal:condition="view/can_edit">Private Sessions</h2>
         <tal:session tal:condition="view/can_edit" repeat="brain view/get_sessions_private">
           <div class="session-item-wrapper" tal:define="session brain/getObject">
