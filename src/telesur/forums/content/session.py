@@ -2,6 +2,7 @@
 
 from five import grok
 from zope import schema
+from zope.i18n import translate
 
 from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
 from plone.app.textfield import RichText
@@ -19,6 +20,21 @@ from zope.security import checkPermission
 from telesur.forums import _
 
 grok.templatedir("session_templates")
+
+MONTHS_DICT = {
+    '01': _(u'January'),
+    '02': _(u'February'),
+    '03': _(u'March'),
+    '04': _(u'April'),
+    '05': _(u'May'),
+    '06': _(u'June'),
+    '07': _(u'July'),
+    '08': _(u'August'),
+    '09': _(u'September'),
+    '10': _(u'October'),
+    '11': _(u'November'),
+    '12':_(u'December'),
+}
 
 class ISession(form.Schema):
     """
@@ -117,6 +133,14 @@ class View(dexterity.DisplayForm):
 
     def can_add_question(self):
         return checkPermission('telesur.forums.questionAddable', self.context)
+    
+    def is_closed(self):
+        obj = self.context
+        portal_workflow = getToolByName(self.context, 'portal_workflow')
+        chain = portal_workflow.getChainForPortalType(obj.portal_type)
+        status = portal_workflow.getStatusOf(chain[0], obj)
+        state = status["review_state"]
+        return state == "closed"
 
     def can_edit_question_fields(self, question):
         return checkPermission('telesur.forums.questionCanEdit', question)
@@ -161,6 +185,18 @@ class View(dexterity.DisplayForm):
     
     def no_questions(self):
         return len(self.get_published_questions()) == 0
+    
+    def format_date(self):
+        date = self.context.date
+        sep = _(u"of")
+        day = date.strftime("%d")
+        month = date.strftime("%m")
+        year = date.strftime("%Y")
+        return "%s %s %s %s %s" % (day, 
+            translate(sep, context=self.request), 
+            translate(MONTHS_DICT[month], context=self.request), 
+            translate(sep, context=self.request), year)
+        
         
 class SessionAjaxPagination(View):
     grok.context(ISession)

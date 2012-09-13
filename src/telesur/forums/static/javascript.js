@@ -30,6 +30,11 @@ function pagination() {
 }
 
 $(document).ready(function() {
+    $('a.is-closed').click(function(e) {
+        e.preventDefault();
+        return false;
+    });
+
     $('a.edit-question').prepOverlay({
          subtype: 'ajax',
          filter: '#content>*',

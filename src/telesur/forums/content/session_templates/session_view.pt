@@ -47,7 +47,7 @@
                                         />
                 </div>
                 <div class="guest-data">
-                  <div tal:content="structure view/w/date/render" />
+                  <div class="session-view-date" tal:content="python: view.format_date()" />
                   <span i18n:translate="">Invited: </span>
                   <div tal:replace="structure view/w/guest_name/render" />
                   <div tal:replace="structure view/w/guest_description/render" />
@@ -62,6 +62,9 @@
                           tal:condition="view/can_add_question"
                           class="question-link edit-question"
                           i18n:translate="">Add question</a>
+              <a href="#" tal:condition="view/is_closed"
+                        class="question-link is-closed"
+                        i18n:translate="">El Foro Esta Cerrado</a>
                           <div id="not-answer-text" tal:condition="view/no_questions" i18n:translate="">
                              There are no answered questions yet
                           </div>

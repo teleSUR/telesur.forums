@@ -20,7 +20,8 @@ class View(dexterity.DisplayForm):
 
     def render(self):
         pt = ViewPageTemplateFile('forum_templates/forum_view.pt')
-        #import pdb; pdb.set_trace()
+        self.published = self.get_sessions("published")
+        self.closed = self.get_sessions("closed")
         return pt(self)
    
     def can_edit(self):
@@ -33,10 +34,18 @@ class View(dexterity.DisplayForm):
         return date
    
     def get_sessions_published(self):
-        return self.get_sessions("published")
+        return self.get_sessions(["published", "closed"])
     
     def get_sessions_private(self):
         return self.get_sessions("private")
+    
+    def is_closed(self, session):
+        obj = session
+        portal_workflow = getToolByName(self.context, 'portal_workflow')
+        chain = portal_workflow.getChainForPortalType(obj.portal_type)
+        status = portal_workflow.getStatusOf(chain[0], obj)
+        state = status["review_state"]
+        return state == "closed"
 
     def get_sessions(self, state):
         pc = getToolByName(self.context, 'portal_catalog')
@@ -46,10 +55,10 @@ class View(dexterity.DisplayForm):
         sort_on='Date'
         sort_order='reverse'
 
-        results = pc.unrestrictedSearchResults(portal_type=ct,
-                                               review_state=state,
-                                               sort_on=sort_on,
-                                               sort_order=sort_order,
-                                               path=path)
+        results = pc(portal_type=ct,
+                        review_state=state,
+                        sort_on=sort_on,
+                        sort_order=sort_order,
+                        path=path)
 
         return results

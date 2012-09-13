@@ -31,6 +31,19 @@
     font-weight: bold;
 }
 
+#content .session-title a:link, #content .session-title a:visited, 
+#content .session-title a:hover {
+    border-bottom: 0;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+#content .session-item-wrapper-open .session-title a:link, 
+#content .session-item-wrapper-open .session-title a:visited, 
+#content .session-item-wrapper-open .session-title a:hover {
+    font-size: 20px;
+}
+
 .session-guest-name {
     font-size: 13px;
     font-weight: bold;
@@ -193,3 +206,22 @@
 .captchaAudio {
     display: none;
 }
+
+.session-item-wrapper .session-guest-description {
+    height: 150px;
+    overflow-y: hidden;
+}
+.session-item-wrapper {
+    height: 197px;
+    overflow-y: hidden;
+}
+
+.session-item-wrapper-open {
+    background-color: #EEEEEE;
+}
+
+.session-view-date,
+.session-date {
+    font-weight: bold;
+}
+

@@ -17,7 +17,7 @@
         <p tal:content="context/description" />
         <h2 i18n:translate="" tal:condition="view/can_edit">Private Sessions</h2>
         <tal:session tal:condition="view/can_edit" repeat="brain view/get_sessions_private">
-          <tal:block define="session brain/getObject">
+          <div class="session-item-wrapper" tal:define="session brain/getObject">
           <div class="session-item">
               <div class="session-guest-pic" tal:define="picture nocall:session/guest_photo">
                 <img tal:attributes="src string:${session/absolute_url}/@@download/guest_photo/${picture/filename}"
@@ -43,11 +43,11 @@
               <div style="clear:both;"></div>
              
           </div>
-          </tal:block>
+          </div>
         </tal:session>
         <h2 i18n:translate="" tal:condition="view/can_edit">Public Sessions</h2>
-        <tal:session repeat="brain view/get_sessions_published">
-          <tal:block define="session brain/getObject">
+        <tal:session repeat="brain view/published">
+        <div class="session-item-wrapper-open" tal:define="session brain/getObject">
           <div class="session-item">
               <div class="session-guest-pic" tal:define="picture nocall:session/guest_photo">
                 <img tal:attributes="src string:${session/absolute_url}/@@download/guest_photo/${picture/filename}"
@@ -55,6 +55,7 @@
               </div>
               <div class="session-title">
                 <a href="#" tal:attributes="href session/absolute_url" tal:content="session/title" />
+                <span tal:condition="python:view.is_closed(session)"> - cerrado</span>
               </div>
               <div class="session-guest-name">
                 <span tal:content="session/guest_name" />
@@ -72,7 +73,36 @@
                </div>
               <div style="clear:both;"></div>
             </div>
-          </tal:block>
+          </div>
+        </tal:session>
+        <tal:session repeat="brain view/closed">
+        <div class="session-item-wrapper" tal:define="session brain/getObject">
+          <div class="session-item">
+              <div class="session-guest-pic" tal:define="picture nocall:session/guest_photo">
+                <img tal:attributes="src string:${session/absolute_url}/@@download/guest_photo/${picture/filename}"
+                                />
+              </div>
+              <div class="session-title">
+                <a href="#" tal:attributes="href session/absolute_url" tal:content="session/title" />
+                <span tal:condition="python:view.is_closed(session)"> - cerrado</span>
+              </div>
+              <div class="session-guest-name">
+                <span tal:content="session/guest_name" />
+              </div>
+              <div class="session-guest-description" tal:condition="session/guest_description">
+                <span tal:condition="session/guest_description"
+                      tal:replace="structure session/guest_description/output" />
+              </div>
+              <div class="session-guest-description" tal:condition="not:session/guest_description">
+                  <span tal:condition="session/Description"
+                        tal:replace="structure session/Description" />
+                </div>
+               <div class="session-date">
+                    <span tal:content="python:view.get_date(session)" />
+               </div>
+              <div style="clear:both;"></div>
+            </div>
+          </div>
         </tal:session>
 
     </tal:main-macro>
