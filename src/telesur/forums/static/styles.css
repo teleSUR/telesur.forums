@@ -211,10 +211,6 @@
     height: 150px;
     overflow-y: hidden;
 }
-.session-item-wrapper {
-    height: 197px;
-    overflow-y: hidden;
-}
 
 .session-item-wrapper-open {
     background-color: #EEEEEE;
