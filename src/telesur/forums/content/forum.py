@@ -23,22 +23,22 @@ class View(dexterity.DisplayForm):
         self.published = self.get_sessions("published")
         self.closed = self.get_sessions("closed")
         return pt(self)
-   
+
     def can_edit(self):
         return checkPermission('cmf.ModifyPortalContent', self.context)
-        
+
     def get_date(self, session):
         date = ""
         if session.date:
             date = session.date.strftime("%d/%m/%Y")
         return date
-   
+
     def get_sessions_published(self):
         return self.get_sessions(["published", "closed"])
-    
+
     def get_sessions_private(self):
         return self.get_sessions("private")
-    
+
     def is_closed(self, session):
         obj = session
         portal_workflow = getToolByName(self.context, 'portal_workflow')
@@ -62,3 +62,8 @@ class View(dexterity.DisplayForm):
                         path=path)
 
         return results
+
+    def get_batch(self):
+        #cannot put it on top of file grok error :S
+        from Products.CMFPlone import Batch
+        return Batch

@@ -31,15 +31,15 @@
     font-weight: bold;
 }
 
-#content .session-title a:link, #content .session-title a:visited, 
+#content .session-title a:link, #content .session-title a:visited,
 #content .session-title a:hover {
     border-bottom: 0;
     text-decoration: none;
     font-size: 15px;
 }
 
-#content .session-item-wrapper-open .session-title a:link, 
-#content .session-item-wrapper-open .session-title a:visited, 
+#content .session-item-wrapper-open .session-title a:link,
+#content .session-item-wrapper-open .session-title a:visited,
 #content .session-item-wrapper-open .session-title a:hover {
     font-size: 20px;
 }
@@ -210,6 +210,11 @@
 .session-item-wrapper .session-guest-description {
     height: 150px;
     overflow-y: hidden;
+}
+
+
+.session-item-wrapper-open .session-guest-description {
+    min-height: 150px;
 }
 
 .session-item-wrapper-open {

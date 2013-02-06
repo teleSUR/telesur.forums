@@ -39,7 +39,7 @@
                     <span tal:content="python:view.get_date(session)" />
                   </div>
               <div style="clear:both;"></div>
-             
+
           </div>
           </div>
         </tal:session>
@@ -73,7 +73,12 @@
             </div>
           </div>
         </tal:session>
-        <tal:session repeat="brain view/closed">
+        <tal:batch define="items view/closed;
+                        Batch view/get_batch;
+                        b_start python:request.get('b_start', 0);
+                        per_page python:request.get('per_page', 2);
+                        batch python:isinstance(items, Batch) and items or Batch(items, per_page, int(b_start), orphan=0);">
+        <tal:session repeat="brain batch">
         <div class="session-item-wrapper" tal:define="session brain/getObject">
           <div class="session-item">
               <div class="session-guest-pic" tal:define="picture nocall:session/guest_photo">
@@ -102,6 +107,8 @@
             </div>
           </div>
         </tal:session>
+        <div metal:use-macro="context/batch_macros/macros/navigation" />
+      </tal:batch>
 
     </tal:main-macro>
 </metal:main>
