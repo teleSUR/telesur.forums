@@ -64,7 +64,7 @@ class ISession(form.Schema):
                           default=u'Enter here the guest\'s fullname.'),
             required=True,
         )
-    
+
     guest_photo = NamedBlobImage(
             title=_(u'Guest Photo'),
             description=_(u'help_guest_photo',
@@ -78,9 +78,9 @@ class ISession(form.Schema):
                           default=u'Enter here the guest\'s description.'),
             required=False,
         )
-        
-    date = schema.Date(title=_(u'Date'), required=False)
-    
+
+    date = schema.Date(title=_(u'Date'), required=True)
+
     banner = NamedBlobImage(
             title=_(u'Banner'),
             description=_(u'help_banner',
@@ -91,17 +91,17 @@ class ISession(form.Schema):
 @form.default_value(field = IExcludeFromNavigation['exclude_from_nav'])
 def excludeFromNavDefaultValue(data):
     return data.request.URL.endswith('++add++telesur.forums.session')
-    
+
 LIMIT = 20
 
 class View(dexterity.DisplayForm):
     grok.context(ISession)
     grok.require('zope2.View')
-    
+
     def upate(self):
         self.limit = 0
         self.pag = 1
-        
+
     def render(self):
         self.limit = 0
         self.pag = 1
@@ -117,14 +117,14 @@ class View(dexterity.DisplayForm):
 
     def can_paginate(self):
         return len(self.get_published_questions()) > LIMIT
-    
+
     def paginate_right(self):
         return len(self.get_published_questions()) > LIMIT*self.pag
-    
+
     def paginate_left(self):
         return self.pag != 1
-    
-        
+
+
     def can_edit(self):
         return checkPermission('cmf.ModifyPortalContent', self.context)
 
@@ -133,7 +133,7 @@ class View(dexterity.DisplayForm):
 
     def can_add_question(self):
         return checkPermission('telesur.forums.questionAddable', self.context)
-    
+
     def is_closed(self):
         obj = self.context
         portal_workflow = getToolByName(self.context, 'portal_workflow')
@@ -170,7 +170,7 @@ class View(dexterity.DisplayForm):
     def get_published_questions(self):
         questions = self._get_catalog_results('published')
         return questions
-    
+
     def get_published_questions_limit(self):
         questions = self.get_published_questions()[LIMIT*(self.pag-1):LIMIT*self.pag]
         return questions
@@ -182,22 +182,22 @@ class View(dexterity.DisplayForm):
     def get_rejected_questions(self):
         questions = self._get_catalog_results('rejected')
         return questions
-    
+
     def no_questions(self):
         return len(self.get_published_questions()) == 0
-    
+
     def format_date(self):
         date = self.context.date
         sep = _(u"of")
         day = date.strftime("%d")
         month = date.strftime("%m")
         year = date.strftime("%Y")
-        return "%s %s %s %s %s" % (day, 
-            translate(sep, context=self.request), 
-            translate(MONTHS_DICT[month], context=self.request), 
+        return "%s %s %s %s %s" % (day,
+            translate(sep, context=self.request),
+            translate(MONTHS_DICT[month], context=self.request),
             translate(sep, context=self.request), year)
-        
-        
+
+
 class SessionAjaxPagination(View):
     grok.context(ISession)
     grok.require('zope2.View')
@@ -216,4 +216,3 @@ class SessionAjaxPagination(View):
     def render(self):
         pt = ViewPageTemplateFile('session_templates/session_view_pag.pt')
         return pt(self)
-    
