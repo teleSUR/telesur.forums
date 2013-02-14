@@ -88,42 +88,23 @@ class ISession(form.Schema):
             required=False,
         )
 
-@form.default_value(field = IExcludeFromNavigation['exclude_from_nav'])
+
+@form.default_value(field=IExcludeFromNavigation['exclude_from_nav'])
 def excludeFromNavDefaultValue(data):
     return data.request.URL.endswith('++add++telesur.forums.session')
 
-LIMIT = 20
 
 class View(dexterity.DisplayForm):
     grok.context(ISession)
     grok.require('zope2.View')
 
-    def upate(self):
-        self.limit = 0
-        self.pag = 1
-
     def render(self):
-        self.limit = 0
-        self.pag = 1
         pt = ViewPageTemplateFile('session_templates/session_view.pt')
 
         if not self.can_edit():
             self.request.set('disable_border', 1)
 
         return pt(self)
-
-    def actual_pag(self):
-        return self.pag
-
-    def can_paginate(self):
-        return len(self.get_published_questions()) > LIMIT
-
-    def paginate_right(self):
-        return len(self.get_published_questions()) > LIMIT*self.pag
-
-    def paginate_left(self):
-        return self.pag != 1
-
 
     def can_edit(self):
         return checkPermission('cmf.ModifyPortalContent', self.context)
@@ -151,13 +132,13 @@ class View(dexterity.DisplayForm):
     def can_change_question_wf(self, question):
         return checkPermission('cmf.ReviewPortalContent', question)
 
-    def _get_catalog_results(self, state):
+    def _get_catalog_results(self, state, ordering='created'):
         pc = getToolByName(self.context, 'portal_catalog')
 
         ct = "telesur.forums.question"
-        path='/'.join(self.context.getPhysicalPath())
-        sort_on='Date'
-        sort_order='reverse'
+        path = '/'.join(self.context.getPhysicalPath())
+        sort_on = ordering
+        sort_order = 'reverse'
 
         results = pc.unrestrictedSearchResults(portal_type=ct,
                                                review_state=state,
@@ -168,11 +149,7 @@ class View(dexterity.DisplayForm):
         return results
 
     def get_published_questions(self):
-        questions = self._get_catalog_results('published')
-        return questions
-
-    def get_published_questions_limit(self):
-        questions = self.get_published_questions()[LIMIT*(self.pag-1):LIMIT*self.pag]
+        questions = self._get_catalog_results('published', 'effective')
         return questions
 
     def get_pending_questions(self):

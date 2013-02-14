@@ -18,7 +18,6 @@ class CountriesStatesParser:
         code,name = line.split(':')
         code = code.strip()
         self._countries[code] = name.strip().decode('ISO-8859-1')
-        self._states[code] = self._parseStatesOf(code)
 
     def _parseStatesOf(self,countryCode):
         statesFile = file(join(self._path,'iso.%s.txt' % countryCode))

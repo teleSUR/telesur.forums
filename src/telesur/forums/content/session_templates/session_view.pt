@@ -15,9 +15,6 @@
 
 <metal:javascriptslot fill-slot="javascript_head_slot" >
 
-        <script type="text/javascript" src="++resource++telesur.forums/javascript.js">
-        </script>
-
 </metal:javascriptslot>
 
 <body>
@@ -35,10 +32,10 @@
           <div id="session-tabs-container" class="row" tal:condition="view/can_answer">
              <ul class="session-tabs">
              	<li><a href="#" i18n:translate="">Responded</a>|</li>
-             	<li><a href="#" i18n:translate="">Pending</a>|</li>
-             	<li><a href="#" i18n:translate="">Rejected</a></li>
+             	<li><a href="#" i18n:translate="">Pending</a></li>
+             	<li tal:condition="view/can_edit">|<a href="#" i18n:translate="">Rejected</a></li>
              </ul>
-          </div>                               
+          </div>
         <div class="questions-and-answer-section row">
             <div class="session-left-column cell width-7 position-0">
 
@@ -53,7 +50,7 @@
                   <div tal:replace="structure view/w/guest_description/render" />
                 </div>
                 <div style="clear:both;"></div>
-                
+
             </div>
 
             <div class="session-right-column cell width-9 position-7">
@@ -70,7 +67,7 @@
                           </div>
               </div>
               <div class="session-quesion-answered" tal:condition="python: not view.no_questions()">
-                <tal:question repeat="brain view/get_published_questions_limit">
+                <tal:question repeat="brain view/get_published_questions">
                 <div tal:define="question brain/getObject" class="row question-item">
                   <div class="question-head">
                     <div class="name-and-country">
@@ -88,7 +85,7 @@
                         <p tal:content="question/answer" />
                       </div>
                       <div style="clear: both;"></div>
-                      
+
                     </div>
                     <a href="#"
                        tal:attributes="href string:${question/absolute_url}/content_status_modify?workflow_action=reject"
@@ -99,15 +96,6 @@
                 </div>
                 </tal:question>
                 <div style="clear:both"></div>
-                <div id="pagination" tal:condition="view/can_paginate">
-                   <div id="pagination-left" class="paginate-questions" tal:condition="view/paginate_left"><a href="#" 
-                     tal:attributes="redirect python:context.absolute_url();
-                     actual python:view.actual_pag()">>>></a></div>
-                   <div id="pagination-right" class="paginate-questions" tal:condition="view/paginate_right"><a href="#" 
-                     tal:attributes="redirect python:context.absolute_url();
-                     actual python:view.actual_pag()">>>></a></div>
-                  <div style="clear:both"></div>
-              </div>
               </div>
             </div>
             <div class="session-right-column cell width-9 position-7" tal:condition="view/can_answer"><div class="session-bottom-column"
@@ -146,7 +134,7 @@
                 </tal:question>
             </div>
             </div>
-            <div class="session-right-column cell width-9 position-7" tal:condition="view/can_answer">
+            <div class="session-right-column cell width-9 position-7" tal:condition="view/can_edit">
               <div class="session-bottom-column"
                    tal:condition="view/can_answer">
                    <h2 i18n:translate="">Questions rejected</h2>
@@ -182,10 +170,10 @@
                      </tal:block>
                    </tal:question>
               </div>
-              
+
             </div>
         </div>
-           <div style="clear:both;"></div>         
+           <div style="clear:both;"></div>
     </tal:main-macro>
 </metal:main>
 

@@ -8,7 +8,6 @@
     height:100%;
 }
 
-.session-quesion-answered,
 .session-right-column {
     padding: 10px;
     border-radius: 15px;
@@ -16,6 +15,15 @@
     padding: 10px;
     position: relative;
     top: 10px;
+}
+
+.session-quesion-answered {
+    border: 1px solid #CCC ;
+    padding: 10px;
+    position: relative;
+    top: 10px;
+    height: 400px;
+    overflow-y: scroll;
 }
 
 .session-right-column {
