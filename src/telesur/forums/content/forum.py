@@ -52,7 +52,7 @@ class View(dexterity.DisplayForm):
 
         ct = "telesur.forums.session"
         path='/'.join(self.context.getPhysicalPath())
-        sort_on='Date'
+        sort_on='date'
         sort_order='reverse'
 
         results = pc(portal_type=ct,

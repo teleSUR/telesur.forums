@@ -1,4 +1,5 @@
-function changeState(){
+function changeState(e){
+    e.preventDefault();
     jQuery.ajax({type: 'POST',
                  url: this.href,
                  async : true,
@@ -10,44 +11,45 @@ function changeState(){
     return false;
 }
 
+function intervalSetMember() {
+    editAjaxForum(".forums-pending", "session-view-pending", "#forums-loading-pending");
+    editAjaxForum(".forums-rejected", "session-view-rejected", "#forums-loading-rejected");
 
-
+    $.ajax({
+        dataType: "json",
+        url: "session-pending-number",
+        success: function(data) {
+            var number = parseInt(data['pending'], 10);
+            if( number > 0) {
+                $("#session-pending-number").text("("+number+")");
+            }
+        }
+    });
+}
 
 $(document).ready(function() {
-    $('a.is-closed').click(function(e) {
-        e.preventDefault();
-        return false;
-    });
 
+    if($(".portaltype-telesur-forums-session").length) {
+        $('a.is-closed').live("click", function(e) {
+            e.preventDefault();
+            return false;
+        });
 
-    function limitText(limitField, limitNum) {
-        if (limitField.value.length > limitNum) {
-            limitField.value = limitField.value.substring(0, limitNum);
-        }
+        $("#forums-pending").click(function() {
+            $("#forums-loading-pending").css("display", "inline");
+            $(".forums-pending").css('display', 'none');
+            editAjaxForum(".forums-pending", "session-view-pending", "#forums-loading-pending");
+        });
+
+        $("#forums-rejected").click(function() {
+            $("#forums-loading-rejected").css("display", "inline");
+            $(".forums-rejected").css('display', 'none');
+            editAjaxForum(".forums-rejected", "session-view-rejected", "#forums-loading-rejected");
+        });
+
+        prepEdit(".forums-pending");
+        prepEdit(".forums-rejected");
+
+        $('a.wf-change').live("click", changeState);
     }
-
-    if($(".template-telesur\\.forums\\.session").length) {
-        var help = $("#formfield-form-widgets-IDublinCore-description .formHelp");
-        help.text(help.text() + " (max 200 caracteres)");
-        $("#form-widgets-IDublinCore-description").keydown(function() {
-            limitText(this, 200);
-        });
-        $("#form-widgets-IDublinCore-description").focusout(function() {
-            limitText(this, 200);
-        });
-        $("#form-widgets-IDublinCore-description").change(function() {
-            limitText(this, 200);
-        });
-    }
-
-
-    $('a.edit-question').prepOverlay({
-         subtype: 'ajax',
-         filter: '#content>*',
-         formselector: 'form',
-         noform: 'reload'
-        });
-
-    $('a.wf-change').click(changeState);
-    $("ul.session-tabs").tabs("div.session-right-column");
 });

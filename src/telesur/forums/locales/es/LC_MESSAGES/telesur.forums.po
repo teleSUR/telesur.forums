@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-09-13 02:31+0000\n"
+"POT-Creation-Date: 2013-02-21 19:41+0000\n"
 "PO-Revision-Date: 2012-07-04 17:21-0300\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -29,7 +29,7 @@ msgstr "Lista de países"
 msgid "A list of states"
 msgstr "Lista de estados"
 
-#: telesur/forums/content/session_templates/session_view.pt:61
+#: telesur/forums/content/session_templates/session_view.pt:58
 msgid "Add question"
 msgstr "Añadir pregunta"
 
@@ -37,15 +37,15 @@ msgstr "Añadir pregunta"
 msgid "Answer"
 msgstr "Respuesta"
 
-#: telesur/forums/content/session.py:28
+#: telesur/forums/content/session.py:37
 msgid "April"
 msgstr "Abril"
 
-#: telesur/forums/content/session.py:32
+#: telesur/forums/content/session.py:41
 msgid "August"
 msgstr "Agosto"
 
-#: telesur/forums/content/session.py:85
+#: telesur/forums/content/session.py:94
 msgid "Banner"
 msgstr "Banner"
 
@@ -53,23 +53,25 @@ msgstr "Banner"
 msgid "Country"
 msgstr "País"
 
-#: telesur/forums/content/session.py:82
+#: telesur/forums/content/session.py:91
 msgid "Date"
 msgstr "Fecha"
 
-#: telesur/forums/content/session.py:36
+#: telesur/forums/content/session.py:45
 msgid "December"
 msgstr "Diciembre"
 
-#: telesur/forums/content/session_templates/session_view.pt:131
+#: telesur/forums/content/session_templates/session_pending.pt:21
+#: telesur/forums/content/session_templates/session_rejected.pt:21
+#: telesur/forums/content/session_templates/session_view.pt:123
 msgid "Edit question"
 msgstr "Editar pregunta"
 
-#: telesur/forums/content/session_templates/session_view.pt:65
+#: telesur/forums/content/session_templates/session_view.pt:62
 msgid "El Foro Esta Cerrado"
 msgstr ""
 
-#: telesur/forums/content/session.py:26
+#: telesur/forums/content/session.py:35
 msgid "February"
 msgstr "Febrero"
 
@@ -77,47 +79,56 @@ msgstr "Febrero"
 msgid "Forum"
 msgstr "Foro"
 
-#: telesur/forums/content/session.py:54
+#: telesur/forums/controlpanel.py:22
+#: telesur/forums/profiles/default/controlpanel.xml
+msgid "Forums Settings"
+msgstr "Ajustes de Foros"
+
+#: telesur/forums/content/session.py:63
 msgid "Guest"
 msgstr "Invitado"
 
-#: telesur/forums/content/session.py:76
+#: telesur/forums/content/session.py:85
 msgid "Guest Description"
 msgstr "Descripción del invitado"
 
-#: telesur/forums/content/session.py:62
+#: telesur/forums/content/session.py:71
 msgid "Guest Name"
 msgstr "Nombre del invitado"
 
-#: telesur/forums/content/session.py:69
+#: telesur/forums/content/session.py:78
 msgid "Guest Photo"
 msgstr "Foto del invitado"
 
-#: telesur/forums/content/session_templates/session_view.pt:51
+#: telesur/forums/controlpanel.py:23
+msgid "Here you can modify the settings for telesur.forums."
+msgstr "Aqui se puede modificar los ajustes para telesur.forums"
+
+#: telesur/forums/content/session_templates/session_view.pt:48
 msgid "Invited:"
 msgstr "Invitado"
 
-#: telesur/forums/content/session.py:25
+#: telesur/forums/content/session.py:34
 msgid "January"
 msgstr "Enero"
 
-#: telesur/forums/content/session.py:31
+#: telesur/forums/content/session.py:40
 msgid "July"
 msgstr "Julio"
 
-#: telesur/forums/content/session.py:30
+#: telesur/forums/content/session.py:39
 msgid "June"
 msgstr "Junio"
 
-#: telesur/forums/content/session.py:27
+#: telesur/forums/content/session.py:36
 msgid "March"
 msgstr "Marzo"
 
-#: telesur/forums/content/session.py:29
+#: telesur/forums/content/session.py:38
 msgid "May"
 msgstr "Mayo"
 
-#: telesur/forums/content/session.py:45
+#: telesur/forums/content/session.py:54
 msgid "Moderator"
 msgstr "Moderador"
 
@@ -131,23 +142,27 @@ msgstr "Nombre"
 msgid "None"
 msgstr "Nada"
 
-#: telesur/forums/content/session.py:35
+#: telesur/forums/content/session.py:44
 msgid "November"
 msgstr "Noviembre"
 
-#: telesur/forums/content/session.py:34
+#: telesur/forums/controlpanel.py:15
+msgid "Number of seconds to wait to update the questions"
+msgstr "Segundos en que tarda en actualizar el listado de preguntas"
+
+#: telesur/forums/content/session.py:43
 msgid "October"
 msgstr "Ocubre"
 
-#: telesur/forums/content/session_templates/session_view.pt:38
+#: telesur/forums/content/session_templates/session_view.pt:35
 msgid "Pending"
 msgstr "Pendiente"
 
-#: telesur/forums/content/forum_templates/forum_view.pt:18
+#: telesur/forums/content/forum_templates/forum_view.pt:16
 msgid "Private Sessions"
 msgstr "Sesiones privadas"
 
-#: telesur/forums/content/forum_templates/forum_view.pt:48
+#: telesur/forums/content/forum_templates/forum_view.pt:46
 msgid "Public Sessions"
 msgstr "Sesiones públicas"
 
@@ -156,35 +171,42 @@ msgstr "Sesiones públicas"
 msgid "Question"
 msgstr "Pregunta"
 
-#: telesur/forums/content/session_templates/session_view.pt:115
+#: telesur/forums/content/session_templates/session_pending.pt:5
+#: telesur/forums/content/session_templates/session_view.pt:107
 msgid "Questions pending review"
 msgstr "Preguntas pendiente de revisión"
 
-#: telesur/forums/content/session_templates/session_view.pt:152
+#: telesur/forums/content/session_templates/session_rejected.pt:5
+#: telesur/forums/content/session_templates/session_view.pt:145
 msgid "Questions rejected"
 msgstr "Preguntas rechazadas"
 
-#: telesur/forums/content/session_templates/session_view.pt:97
+#: telesur/forums/content/session_templates/session_pending.pt:32
+#: telesur/forums/content/session_templates/session_view.pt:95
+#: telesur/forums/content/session_templates/session_view_pag.pt:27
 msgid "Reject question"
 msgstr "Rechazar pregunta"
 
-#: telesur/forums/content/session_templates/session_view.pt:39
+#: telesur/forums/content/session_templates/session_view.pt:36
 msgid "Rejected"
 msgstr "Rechazada"
 
-#: telesur/forums/content/session_templates/session_view.pt:137
+#: telesur/forums/content/session_templates/session_pending.pt:27
+#: telesur/forums/content/session_templates/session_rejected.pt:27
+#: telesur/forums/content/session_templates/session_view.pt:129
 msgid "Respond question"
 msgstr "Responder pregunta"
 
-#: telesur/forums/content/session_templates/session_view.pt:37
+#: telesur/forums/content/session_templates/session_view.pt:34
 msgid "Responded"
 msgstr "Respondida"
 
-#: telesur/forums/content/session_templates/session_view.pt:179
+#: telesur/forums/content/session_templates/session_rejected.pt:32
+#: telesur/forums/content/session_templates/session_view.pt:172
 msgid "Retract question"
 msgstr "Retraer pregunta"
 
-#: telesur/forums/content/session.py:33
+#: telesur/forums/content/session.py:42
 msgid "September"
 msgstr "Septiembre"
 
@@ -192,7 +214,7 @@ msgstr "Septiembre"
 msgid "Session"
 msgstr "Sesión"
 
-#: telesur/forums/content/session_templates/session_view.pt:68
+#: telesur/forums/content/session_templates/session_view.pt:65
 msgid "There are no answered questions yet"
 msgstr "Todavía no hay preguntas respondidas"
 
@@ -206,7 +228,7 @@ msgid "help_answer"
 msgstr "Ingrese aquí la respuesta."
 
 #. Default: "Enter the banner you want to show on top of the session."
-#: telesur/forums/content/session.py:86
+#: telesur/forums/content/session.py:95
 msgid "help_banner"
 msgstr "Agregue aquí el banner que quiere mostrar en la parte superior de la sesión."
 
@@ -216,27 +238,27 @@ msgid "help_country"
 msgstr "Seleccione su país."
 
 #. Default: "Choose the guest for the session."
-#: telesur/forums/content/session.py:55
+#: telesur/forums/content/session.py:64
 msgid "help_guest"
 msgstr "Elija el invitado para la sesión."
 
 #. Default: "Enter here the guest's description."
-#: telesur/forums/content/session.py:77
+#: telesur/forums/content/session.py:86
 msgid "help_guest_description"
 msgstr "Ingrese aquí la descripción del invitado."
 
 #. Default: "Enter here the guest's fullname."
-#: telesur/forums/content/session.py:63
+#: telesur/forums/content/session.py:72
 msgid "help_guest_name"
 msgstr "Ingrese aquí el nombre completo del invitado."
 
 #. Default: "Enter here the guest's photo."
-#: telesur/forums/content/session.py:70
+#: telesur/forums/content/session.py:79
 msgid "help_guest_photo"
 msgstr "Ingrese aquí una foto del invitado."
 
 #. Default: "Choose a user that will be a moderator for the session."
-#: telesur/forums/content/session.py:46
+#: telesur/forums/content/session.py:55
 msgid "help_moderator"
 msgstr "Seleccione un usuario que va a cumplir el rol de moderador en la sesión."
 
@@ -250,7 +272,7 @@ msgstr "Ingrese aquí su nombre completo."
 msgid "help_question"
 msgstr "Ingrese aquí su pregunta."
 
-#: telesur/forums/content/session.py:191
+#: telesur/forums/content/session.py:204
 msgid "of"
 msgstr "de"
 

@@ -14,14 +14,14 @@
 </metal:styleslot>
 
 <metal:javascriptslot fill-slot="javascript_head_slot" >
-
+  <script type="text/javascript" tal:content="structure view/js_update">
+  </script>
 </metal:javascriptslot>
 
 <body>
 
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
-
         <div class="session-banner" tal:define="picture nocall:context/banner"
                                     tal:condition="picture">
                 <img tal:attributes="src string:${context/absolute_url}/@@download/banner/${picture/filename}"
@@ -31,9 +31,9 @@
                                          tal:content="context/title" />
           <div id="session-tabs-container" class="row" tal:condition="view/can_answer">
              <ul class="session-tabs">
-             	<li><a href="#" i18n:translate="">Responded</a>|</li>
-             	<li><a href="#" i18n:translate="">Pending</a></li>
-             	<li tal:condition="view/can_edit">|<a href="#" i18n:translate="">Rejected</a></li>
+             	<li><a href="#" id="forums-responded" i18n:translate="">Responded</a>|</li>
+             	<li><a href="#" id="forums-pending"><span i18n:translate="">Pending</span> <span id="session-pending-number" tal:define="pending_num python: len(view.get_pending_questions())" tal:content="python:'('+str(pending_num)+')' if pending_num > 0 else ''"/></a></li>
+             	<li tal:condition="view/can_edit">|<a id="forums-rejected" href="#" i18n:translate="">Rejected</a></li>
              </ul>
           </div>
         <div class="questions-and-answer-section row">
@@ -52,12 +52,12 @@
                 <div style="clear:both;"></div>
 
             </div>
-
             <div class="session-right-column cell width-9 position-7">
+              <img class="forums-loading" id="forums-loading-responded" src="++resource++telesur.forums/loading.gif" />
               <div id="ask-question">
                 <a href="#" tal:attributes="href string:${context/absolute_url}/++add++telesur.forums.question"
                           tal:condition="view/can_add_question"
-                          class="question-link edit-question"
+                          class="question-link"
                           i18n:translate="">Add question</a>
               <a href="#" tal:condition="view/is_closed"
                         class="question-link is-closed"
@@ -66,8 +66,9 @@
                              There are no answered questions yet
                           </div>
               </div>
-              <div class="session-quesion-answered" tal:condition="python: not view.no_questions()">
-                <tal:question repeat="brain view/get_published_questions">
+              <div>
+              <div class="session-quesion-answered">
+                <tal:question repeat="brain view/get_published_questions" tal:condition="python: not view.no_questions()">
                 <div tal:define="question brain/getObject" class="row question-item">
                   <div class="question-head">
                     <div class="name-and-country">
@@ -98,7 +99,10 @@
                 <div style="clear:both"></div>
               </div>
             </div>
-            <div class="session-right-column cell width-9 position-7" tal:condition="view/can_answer"><div class="session-bottom-column"
+            </div>
+            <div class="session-right-column cell width-9 position-7" tal:condition="view/can_answer">
+              <img id="forums-loading-pending" class="forums-loading" src="++resource++telesur.forums/loading.gif" />
+              <div class="session-bottom-column forums-pending"
                  tal:condition="view/can_answer">
                 <h2 i18n:translate="">Questions pending review</h2>
                 <tal:question repeat="brain view/get_pending_questions">
@@ -135,7 +139,8 @@
             </div>
             </div>
             <div class="session-right-column cell width-9 position-7" tal:condition="view/can_edit">
-              <div class="session-bottom-column"
+              <img class="forums-loading" id="forums-loading-rejected" src="++resource++telesur.forums/loading.gif" />
+              <div class="session-bottom-column forums-rejected"
                    tal:condition="view/can_answer">
                    <h2 i18n:translate="">Questions rejected</h2>
                    <tal:question repeat="brain view/get_rejected_questions">

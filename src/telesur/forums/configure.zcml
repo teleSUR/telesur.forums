@@ -4,6 +4,7 @@
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="telesur.forums">
 
@@ -13,10 +14,10 @@
 
   <include file="permissions.zcml" />
   <include file="vocabularies.zcml" />
-  
+
   <include package="plone.directives.form" file="meta.zcml" />
   <include package="plone.directives.form" />
-  
+
   <grok:grok package="." />
 
   <genericsetup:registerProfile
@@ -26,6 +27,14 @@
       description="Installs the telesur.forums package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+
+  <browser:page
+      name="forums-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.ForumsSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
   <!-- -*- extra stuff goes here -*- -->
 
   <adapter

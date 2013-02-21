@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
 
+try:
+    import json
+except ImportError:
+    # Python 2.54 / Plone 3.3 use simplejson
+    # version > 2.3 < 3.0
+    import simplejson as json
+
 from five import grok
 from zope import schema
+from zope.component import getUtility, getMultiAdapter
 from zope.i18n import translate
 
 from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
 from plone.app.textfield import RichText
 from plone.namedfile.field import NamedBlobImage
-
+from plone.registry.interfaces import IRegistry
 
 from plone.directives import dexterity, form
 
@@ -17,6 +25,7 @@ from Products.CMFCore.utils import getToolByName
 
 from zope.security import checkPermission
 
+from telesur.forums.controlpanel import IForumsSettings
 from telesur.forums import _
 
 grok.templatedir("session_templates")
@@ -163,6 +172,33 @@ class View(dexterity.DisplayForm):
     def no_questions(self):
         return len(self.get_published_questions()) == 0
 
+    def js_update(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IForumsSettings)
+        seconds = 10
+        if settings.seconds:
+            seconds = settings.seconds
+
+        portal_state = getMultiAdapter(
+            (self.context, self.request),
+            name="plone_portal_state"
+        )
+
+        js = """
+            $(document).ready(function() {
+                setInterval(intervalSetAnon, %s000);
+            });
+        """ % seconds
+
+        if not portal_state.anonymous():
+            js = """
+                $(document).ready(function() {
+                    setInterval(intervalSetAnon, %s000);
+                    setInterval(intervalSetMember, %s000);
+                });
+            """ % (seconds, seconds)
+        return js
+
     def format_date(self):
         date = self.context.date
         sep = _(u"of")
@@ -175,21 +211,42 @@ class View(dexterity.DisplayForm):
             translate(sep, context=self.request), year)
 
 
-class SessionAjaxPagination(View):
+class SessionAjax(View):
     grok.context(ISession)
     grok.require('zope2.View')
-    grok.name("session-view-pag")
-
-    def update(self):
-        self.limit = 0
-        self.pag = 1
-        page = int(self.request['b_start'])
-        side = self.request['side']
-        if side == "pagination-right":
-            self.pag = page + 1
-        else:
-            self.pag = page - 1
+    grok.name("session-view-published")
 
     def render(self):
         pt = ViewPageTemplateFile('session_templates/session_view_pag.pt')
         return pt(self)
+
+
+class SessionAjaxPending(View):
+    grok.context(ISession)
+    grok.require('zope2.View')
+    grok.name("session-view-pending")
+
+    def render(self):
+        pt = ViewPageTemplateFile('session_templates/session_pending.pt')
+        return pt(self)
+
+
+class SessionAjaxRejected(View):
+    grok.context(ISession)
+    grok.require('zope2.View')
+    grok.name("session-view-rejected")
+
+    def render(self):
+        pt = ViewPageTemplateFile('session_templates/session_rejected.pt')
+        return pt(self)
+
+
+class SessionAjaxPendingNumber(View):
+    grok.context(ISession)
+    grok.require('zope2.View')
+    grok.name("session-pending-number")
+
+    def render(self):
+        result = json.dumps({'pending': len(self.get_pending_questions())})
+        self.request.response.setHeader("Content-type", "application/json")
+        return result

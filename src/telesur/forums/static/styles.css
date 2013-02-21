@@ -234,3 +234,14 @@
     font-weight: bold;
 }
 
+.session-right-column {
+    min-height: 40px
+}
+
+
+.forums-loading {
+    position: absolute;
+    right: 277px;
+    display: none;
+}
+

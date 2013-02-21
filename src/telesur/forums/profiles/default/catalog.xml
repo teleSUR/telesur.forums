@@ -4,4 +4,8 @@
         <indexed_attr value="guest"/>
     </index>
     <column value="guest"/>
+    <index name="date" meta_type="DateIndex">
+        <indexed_attr value="date"/>
+    </index>
+    <column value="date"/>
 </object>
