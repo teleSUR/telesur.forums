@@ -4,8 +4,8 @@
     i18n:domain="telesur.forums"
     purge="False">
     <configlet title="Forums Settings"
-        action_id="reporter"
-        appId="teesur.forums"
+        action_id="forums"
+        appId="telesur.forums"
         category="Products"
         condition_expr=""
         url_expr="string:${portal_url}/@@forums-settings"
