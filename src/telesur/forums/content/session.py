@@ -45,6 +45,7 @@ MONTHS_DICT = {
     '12':_(u'December'),
 }
 
+
 class ISession(form.Schema):
     """
     A session than contains questions
@@ -193,10 +194,9 @@ class View(dexterity.DisplayForm):
         if not portal_state.anonymous():
             js = """
                 $(document).ready(function() {
-                    setInterval(intervalSetAnon, %s000);
                     setInterval(intervalSetMember, %s000);
                 });
-            """ % (seconds, seconds)
+            """ % seconds
         return js
 
     def format_date(self):

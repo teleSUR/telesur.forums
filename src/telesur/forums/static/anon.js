@@ -15,8 +15,12 @@ function prepEdit(clsContainer) {
             });
     }
 
-function editAjaxForum(clsConatainer, urlAjax, clsLoading) {
-    if(!$('a.edit-question.clicked').length) {
+function editAjaxForum(clsConatainer, urlAjax, clsLoading, isAnon, clsTab) {
+    var doAjax = true;
+    if(!isAnon && !$(clsTab).hasClass("current")) {
+        doAjax = false;
+    }
+    if(!$('a.edit-question.clicked').length && doAjax) {
         $.ajax({
             url: urlAjax,
             success: function(html) {
@@ -31,7 +35,7 @@ function editAjaxForum(clsConatainer, urlAjax, clsLoading) {
 }
 
 function intervalSetAnon() {
-    editAjaxForum(".session-quesion-answered", "session-view-published", "#forums-loading-responded");
+    editAjaxForum(".session-quesion-answered", "session-view-published", "#forums-loading-responded", true, "#forums-responded");
 }
 
 $(document).ready(function() {
@@ -46,7 +50,7 @@ $(document).ready(function() {
         $("#forums-responded").click(function() {
             $("#forums-loading-responded").css("display", "inline");
             $(".session-quesion-answered").css('display', 'none');
-            editAjaxForum(".session-quesion-answered", "session-view-published", "#forums-loading-responded");
+            editAjaxForum(".session-quesion-answered", "session-view-published", "#forums-loading-responded", false, "#forums-responded");
         });
 
         $("ul.session-tabs").tabs("div.session-right-column");

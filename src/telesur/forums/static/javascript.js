@@ -12,8 +12,9 @@ function changeState(e){
 }
 
 function intervalSetMember() {
-    editAjaxForum(".forums-pending", "session-view-pending", "#forums-loading-pending");
-    editAjaxForum(".forums-rejected", "session-view-rejected", "#forums-loading-rejected");
+    editAjaxForum(".forums-pending", "session-view-pending", "#forums-loading-pending", false, "#forums-pending");
+    editAjaxForum(".forums-rejected", "session-view-rejected", "#forums-loading-rejected", false, "#forums-rejected");
+    editAjaxForum(".session-quesion-answered", "session-view-published", "#forums-loading-responded", false, "#forums-responded");
 
     $.ajax({
         dataType: "json",
@@ -38,13 +39,13 @@ $(document).ready(function() {
         $("#forums-pending").click(function() {
             $("#forums-loading-pending").css("display", "inline");
             $(".forums-pending").css('display', 'none');
-            editAjaxForum(".forums-pending", "session-view-pending", "#forums-loading-pending");
+            editAjaxForum(".forums-pending", "session-view-pending", "#forums-loading-pending", true, "#forums-pending");
         });
 
         $("#forums-rejected").click(function() {
             $("#forums-loading-rejected").css("display", "inline");
             $(".forums-rejected").css('display', 'none');
-            editAjaxForum(".forums-rejected", "session-view-rejected", "#forums-loading-rejected");
+            editAjaxForum(".forums-rejected", "session-view-rejected", "#forums-loading-rejected", true, "#forums-rejected");
         });
 
         prepEdit(".forums-pending");
